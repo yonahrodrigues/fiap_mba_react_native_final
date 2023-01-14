@@ -61,3 +61,17 @@ Você terá de desenvolver um aplicativo React Native que irá listar os produto
 # Doc das APIs
 
 A documentação das APIs está disponível em: **https://fiap-reactjs-presencial.herokuapp.com/doc**
+
+# Comandos
+
+## criando template
+- expo init mba_fiap_react_native_final
+
+## iniciando app
+To run your project, navigate to the directory and run one of the following yarn commands.
+
+- cd mba_fiap_react_native_final
+- yarn start # you can open iOS, Android, or web from here, or run them directly with the commands below.
+- yarn android
+- yarn ios
+- yarn web
