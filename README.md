@@ -108,7 +108,7 @@ To run your project, navigate to the directory and run one of the following yarn
 
 > Referencias:
 
-```
+
 - [repository git class](https://github.com/joserrodrigues/fiap_mba_prs_ts_rn_v2)
 
 - [doc API](https://fiap-reactjs-presencial.herokuapp.com/doc)
@@ -135,7 +135,7 @@ To run your project, navigate to the directory and run one of the following yarn
 - [redux medium](https://medium.com/reactbrasil/iniciando-com-redux-c14ca7b7dcf)
 
 
-```
+
 
 > Objetivos:
 
