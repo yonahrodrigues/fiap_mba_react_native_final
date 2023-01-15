@@ -152,7 +152,7 @@ To run your project, navigate to the directory and run one of the following yarn
 - [x] Tela de Produtos deve exibir campos:
      - Nome, preço, Favorito e botão detalhe
 - [] Tela de Produtos deve utilizar ListView com paginação
-- [] Tela de Produtos ao iniciar deve carregar a geolocalização do usuário
+- [-] Tela de Produtos ao iniciar deve carregar a geolocalização do usuário
 - [-] Tela de Favoritos deve exibir campos:
      - Nome, preço, Favorito e botão detalhe
 - [-] Tela de Detalhe deve exibir:

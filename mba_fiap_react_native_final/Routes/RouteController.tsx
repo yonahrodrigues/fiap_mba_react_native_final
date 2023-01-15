@@ -11,20 +11,20 @@ import {
   DrawerNavigationOptions,
 } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-//import { registerRootComponent } from "expo";
+import { registerRootComponent } from "expo";
 
 import HomeController from "../Screens/Home/HomeController";
 import DetailController from "../Screens/Detail/DetailController";
 import MyPositionController from "../Screens/MyPosition/MyPositionController";
 import RegisterController from "../Screens/Register/RegisterController";
-import FavoriteController from "../Screens/Favorites/FavoriteController";
+
 import Colors from "../Styles/Colors";
 //import { useManageNotification } from "../Services/Notification/useManageNotification";
 
 import LoginController from "../Screens/Login/LoginController";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../Store/store";
-import { registerRootComponent } from "expo";
+
 import { Provider } from "react-redux";
 import { useAppSelector } from "../Store/hooks";
 
@@ -39,7 +39,7 @@ export type RootStackParamList = {
   MyPosition: undefined;
 };
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -94,15 +94,14 @@ const RouteController = () => {
   };
 
   const userInfo = useAppSelector((state) => state.login.user);
-  console.log("UserINFO" + userInfo);
   if (userInfo && userInfo.token !== "") {
     return (
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Navigator initialRouteName="Main">
           <Drawer.Screen
-            name="Home"
+            name="Main"
             component={StackHome}
-            options={{ drawerLabel: "Home", ...drawerNavigation }}
+            options={{ drawerLabel: "Main", ...drawerNavigation }}
           />
           <Drawer.Screen
             name="MyPositionDrawer"
@@ -112,6 +111,11 @@ const RouteController = () => {
               headerShown: false,
               ...drawerNavigation,
             }}
+          />
+           <Drawer.Screen
+            name="Details"
+            component={DetailController}
+            options={{ drawerLabel: "Main", ...drawerNavigation }}
           />
         </Drawer.Navigator>
       </NavigationContainer>
@@ -133,18 +137,13 @@ const RouteController = () => {
                 options={screenOptions}
               />
               <Stack.Screen
-                name="Favorite"
-                component={FavoriteController}
+                name="Register"
+                component={RegisterController}
                 options={screenOptions}
               />
               <Stack.Screen
                 name="Details"
                 component={DetailController}
-                options={screenOptions}
-              />
-              <Stack.Screen
-                name="Register"
-                component={RegisterController}
                 options={screenOptions}
               />
             </Stack.Navigator>

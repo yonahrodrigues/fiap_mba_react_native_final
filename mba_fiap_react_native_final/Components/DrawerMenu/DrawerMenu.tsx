@@ -7,9 +7,8 @@ import { useNavigation } from "@react-navigation/native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 
 const DrawerMenu = () => {
-  const navigation =
-    useNavigation<DrawerNavigationProp<RootDrawerParamList, "Main">>();
-
+  
+  const navigation = useNavigation<DrawerNavigationProp<RootDrawerParamList, "Main">>();
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (

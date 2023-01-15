@@ -1,9 +1,9 @@
 const colors = {
   White: "#ffffff",
-  PrimaryDark: "#fa5757",
-  PrimaryMedium: "#fc7474",
-  PrimaryLight: "#fc9797",
-  PrimaryLightest: "#fcd4d4",
+  PrimaryDark: "#042c4a",
+  PrimaryMedium: "#085087",
+  PrimaryLight: "#308bd1",
+  PrimaryLightest: "#64afe8",
 
   SecondaryDark: "#688C38",
   SecondaryMedium: "#86B34A",
@@ -27,7 +27,7 @@ const colors = {
   Success: "#508110",
 
   BackgroundDisabled: "#E1D9D9",
-  HeaderBackgroundColor: "#fa5757",
+  HeaderBackgroundColor: "#112e45",
   HeaderTintColor: "#ffffff",
 };
 

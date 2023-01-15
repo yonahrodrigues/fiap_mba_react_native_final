@@ -24,7 +24,10 @@ const HomeController = ({ route, navigation }: iProps) => {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          onPress={() => dispatch(cleanUser())}
+          onPress={() => {
+            dispatch(cleanUser());
+            navigation.navigate("MyPosition");
+          }}
           title="Logoff"
           type="clear"
           titleStyle={{ color: "white" }}
