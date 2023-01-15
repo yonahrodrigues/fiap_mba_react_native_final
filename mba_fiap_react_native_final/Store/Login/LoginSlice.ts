@@ -4,7 +4,7 @@ import {
   useSetStorageItem,
   useRemoveStorageItem,
 } from "../../Services/Storage/StorageServices";
-
+import { useNavigation } from "@react-navigation/native";
 import type { RootState } from "../store";
 import { ISetUserPayload, UserState } from "./LoginSliceTypes";
 
@@ -25,6 +25,9 @@ export const userSlice = createSlice({
     cleanUser: async (state) => {
       state.user = null;
       await useRemoveStorageItem("user-token");
+      const navigation = useNavigation();
+      console.log("saindo");
+      navigation.navigate("MyPosition");
     },
   },
 });

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import { View, FlatList } from "react-native";
 import Colors from "../../Styles/Colors";
 import IProduct from "../../Interfaces/IProduct";
@@ -59,6 +60,14 @@ const HomeView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
     );
   }
 
+  const navigation = useNavigation();
+  const irPraHome = () => {
+    navigation.navigate("Home");
+  };
+  const irPraFav = () => {
+    navigation.navigate("Favorite");
+  };
+
   return (
     <MainSafeAreaView>
       <DrawerMenu />
@@ -71,6 +80,7 @@ const HomeView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
         keyExtractor={(item: IProduct) => item._id.toString()}
         testID="flatListHome"
       />
+      <Button title="ver meus Favoritos" onPress={irPraFav} />
     </MainSafeAreaView>
   );
 };

@@ -16,13 +16,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeController from "../Screens/Home/HomeController";
 import DetailController from "../Screens/Detail/DetailController";
 import MyPositionController from "../Screens/MyPosition/MyPositionController";
+import RegisterController from "../Screens/Register/RegisterController";
+import FavoriteController from "../Screens/Favorites/FavoriteController";
 import Colors from "../Styles/Colors";
 //import { useManageNotification } from "../Services/Notification/useManageNotification";
 
 import LoginController from "../Screens/Login/LoginController";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../Store/store";
-
+import { registerRootComponent } from "expo";
 import { Provider } from "react-redux";
 import { useAppSelector } from "../Store/hooks";
 
@@ -92,15 +94,15 @@ const RouteController = () => {
   };
 
   const userInfo = useAppSelector((state) => state.login.user);
-  console.log("UserINFO"+userInfo);
+  console.log("UserINFO" + userInfo);
   if (userInfo && userInfo.token !== "") {
     return (
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Main">
+        <Drawer.Navigator initialRouteName="Home">
           <Drawer.Screen
-            name="Main"
+            name="Home"
             component={StackHome}
-            options={{ drawerLabel: "Main", ...drawerNavigation }}
+            options={{ drawerLabel: "Home", ...drawerNavigation }}
           />
           <Drawer.Screen
             name="MyPositionDrawer"
@@ -115,20 +117,52 @@ const RouteController = () => {
       </NavigationContainer>
     );
   } else {
+    return (
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="MyPosition"
+                component={LoginController}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Home"
+                component={HomeController}
+                options={screenOptions}
+              />
+              <Stack.Screen
+                name="Favorite"
+                component={FavoriteController}
+                options={screenOptions}
+              />
+              <Stack.Screen
+                name="Details"
+                component={DetailController}
+                options={screenOptions}
+              />
+              <Stack.Screen
+                name="Register"
+                component={RegisterController}
+                options={screenOptions}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </PersistGate>
+      </Provider>
+    );
+  }
+};
+
+const RouteControllerManagement = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="MyPosition"
-          component={LoginController}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+        <RouteController />
       </PersistGate>
     </Provider>
   );
-   }
 };
+
+export default registerRootComponent(RouteControllerManagement);

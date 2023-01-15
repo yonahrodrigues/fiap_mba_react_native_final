@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Button } from "react-native";
+import { View, Button, StyleSheet } from "react-native";
 
 import { Input } from "react-native-elements";
 import { ActivityIndicator } from "react-native-paper";
@@ -71,10 +71,14 @@ const LoginView = ({ submitForm, isLoadingAuth }: IProps) => {
             />
             <BottomButton>{infoButton}</BottomButton>
           </LoginBox>
-          <View>
-            <Button title="ir pra home" onPress={irPraHome} />
-            <Button title="ir pra Favoritos" onPress={irPraFav} />
-            <Button title="Registrar" onPress={irPraRegister} />
+          <View style={styles.button}>
+            {/* <Button title="ir pra home" onPress={irPraHome} /> */}
+            {/* <Button title="ir pra Favoritos" onPress={irPraFav} /> */}
+            <Button
+              title="Registrar"
+              onPress={irPraRegister}
+              style={styles.button}
+            />
           </View>
         </BottomScreen>
       </FrontImageBackground>
@@ -82,4 +86,22 @@ const LoginView = ({ submitForm, isLoadingAuth }: IProps) => {
   );
 };
 
+const styles = StyleSheet.create({
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: "black",
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
+  },
+});
 export default LoginView;

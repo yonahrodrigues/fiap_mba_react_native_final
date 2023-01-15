@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import {
   createStackNavigator,
   StackNavigationOptions,
@@ -97,6 +98,73 @@ export const StackHome = () => {
               options={screenOptions}
             />
           </MainStack.Navigator>
+        </PersistGate>
+      </Provider>
+    );
+  }
+};
+
+const RouteController = () => {
+  //useManageNotification();
+
+  let drawerNavigation: DrawerNavigationOptions = {
+    headerShown: false,
+    drawerActiveTintColor: Colors.HeaderTintColor,
+    drawerInactiveTintColor: Colors.NeutralMedium,
+    drawerStyle: {
+      backgroundColor: Colors.HeaderBackgroundColor,
+      width: 240,
+    },
+  };
+
+  const StackMyPosition = () => {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="MyPosition"
+          component={MyPositionController}
+          options={{ ...screenOptions, title: "Minha Posição" }}
+        />
+      </Stack.Navigator>
+    );
+  };
+
+  const userInfo = useAppSelector((state) => state.login.user);
+  console.log("UserINFO" + userInfo);
+  if (userInfo && userInfo.token !== "") {
+    return (
+      <NavigationContainer>
+        <Drawer.Navigator initialRouteName="Main">
+          <Drawer.Screen
+            name="Main"
+            component={StackHome}
+            options={{ drawerLabel: "Main", ...drawerNavigation }}
+          />
+          <Drawer.Screen
+            name="MyPositionDrawer"
+            component={StackMyPosition}
+            options={{
+              drawerLabel: "Minha Posição",
+              headerShown: false,
+              ...drawerNavigation,
+            }}
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    );
+  } else {
+    return (
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="MyPosition"
+                component={LoginController}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
         </PersistGate>
       </Provider>
     );
