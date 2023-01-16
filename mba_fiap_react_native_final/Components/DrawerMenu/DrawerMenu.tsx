@@ -7,13 +7,18 @@ import { useNavigation } from "@react-navigation/native";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 
 const DrawerMenu = () => {
-  
-  const navigation = useNavigation<DrawerNavigationProp<RootDrawerParamList, "Main">>();
+  const navigation =
+    useNavigation<DrawerNavigationProp<RootDrawerParamList, "Main">>();
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity
-          onPress={() => navigation.toggleDrawer()}
+          onPress={() =>
+            navigation.reset({
+              index: 1,
+              routes: [{ name: "MainDrawer" }],
+            })
+          }
           style={{ padding: 5 }}
         >
           <Icon

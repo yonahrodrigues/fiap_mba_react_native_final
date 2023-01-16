@@ -20,7 +20,9 @@ export const userSlice = createSlice({
     setUser: async (state, action: ISetUserPayload) => {
       let user: IUserInfo | null = action.payload?.user ?? null;
       state.user = user;
-      await useSetStorageItem("user-token", user?.token);
+      if (user?.token) {
+        await useSetStorageItem("user-token", user?.token);
+      }
     },
     cleanUser: async (state) => {
       state.user = null;

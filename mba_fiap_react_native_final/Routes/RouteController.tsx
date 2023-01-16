@@ -27,6 +27,7 @@ import { persistor, store } from "../Store/store";
 
 import { Provider } from "react-redux";
 import { useAppSelector } from "../Store/hooks";
+import MainDrawer from "./MainDrawer";
 
 export type RootDrawerParamList = {
   Main: undefined;
@@ -112,7 +113,7 @@ const RouteController = () => {
               ...drawerNavigation,
             }}
           />
-           <Drawer.Screen
+          <Drawer.Screen
             name="Details"
             component={DetailController}
             options={{ drawerLabel: "Main", ...drawerNavigation }}
@@ -144,6 +145,11 @@ const RouteController = () => {
               <Stack.Screen
                 name="Details"
                 component={DetailController}
+                options={screenOptions}
+              />
+              <Stack.Screen
+                name="MainDrawer"
+                component={MainDrawer}
                 options={screenOptions}
               />
             </Stack.Navigator>

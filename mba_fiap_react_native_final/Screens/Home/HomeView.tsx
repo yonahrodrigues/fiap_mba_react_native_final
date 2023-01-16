@@ -15,7 +15,7 @@ import {
 } from "./HomeStyles";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import DrawerMenu from "../../Components/DrawerMenu/DrawerMenu";
-
+import MainDrawer from "../../Routes/MainDrawer";
 type iProps = {
   dataConnection: IProduct[];
   isLoading: boolean;
@@ -71,6 +71,8 @@ const HomeView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
   return (
     <MainSafeAreaView>
       <DrawerMenu />
+
+      {/* <MainDrawer /> */}
       {loadingBox}
       <FlatList
         data={dataConnection}

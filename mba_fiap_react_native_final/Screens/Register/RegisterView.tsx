@@ -28,7 +28,7 @@ const RegisterView = ({ submitForm, isLoadingAuth }: IProps) => {
     <MainContainer>
       <StyledImageBackground
         source={{
-          uri: "https://previews.123rf.com/images/chagin/chagin1501/chagin150100001/35151812-business-people-working-together.jpg",
+          uri: "https://previews.123rf.com/images/imagehitasia/imagehitasia1504/imagehitasia150402635/39004271-great-wall-of-china.jpg",
         }}
         resizeMode="cover"
       >
