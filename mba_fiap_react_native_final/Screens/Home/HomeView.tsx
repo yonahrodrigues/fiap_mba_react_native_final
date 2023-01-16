@@ -12,18 +12,31 @@ import {
   TextTitle,
   TextDetail,
   Separator,
+  ProdFavButton,
 } from "./HomeStyles";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import DrawerMenu from "../../Components/DrawerMenu/DrawerMenu";
 import MainDrawer from "../../Routes/MainDrawer";
+import FavoriteIcon from "../../assets/favorite.svg";
+import FavoriteIconFull from "../../assets/favorite_full.svg";
+import useAPI from "../../Services/APIs/Common/useAPI";
+
 type iProps = {
   dataConnection: IProduct[];
   isLoading: boolean;
   goToDetail: (item: IProduct) => void;
 };
 
+// let info: IParamGetManageFavorite = {
+//   productID: item._id.toString(),
+// };
+
 const HomeView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
   const RenderItem = ({ item }: { item: IProduct }) => {
+    function handleFavClick() {
+      //todo aplicar logica favorited
+    }
+
     return (
       <ContainerItem
         onPress={() => goToDetail(item)}
@@ -33,12 +46,17 @@ const HomeView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
           <TextsView>
             <View>
               <TextNameStyle>
+                <ProdFavButton onPress={handleFavClick}>
+                  {item.favorite ? (
+                    <FavoriteIconFull width="24" height="24" fill="#ff0000" />
+                  ) : (
+                    <FavoriteIcon width="24" height="24" fill="#ff0000" />
+                  )}
+                </ProdFavButton>
                 <TextTitle>{item.name}</TextTitle>
               </TextNameStyle>
               <TextNameStyle>
-                <TextDetail>
-                  R${item.price} - {item.favorite ? "Favorito" : "Comum"}
-                </TextDetail>
+                <TextDetail>R${item.price}</TextDetail>
               </TextNameStyle>
               <Button />
             </View>
@@ -61,9 +79,7 @@ const HomeView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
   }
 
   const navigation = useNavigation();
-  const irPraHome = () => {
-    navigation.navigate("Home");
-  };
+
   const irPraFav = () => {
     navigation.navigate("Favorite");
   };

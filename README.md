@@ -94,7 +94,7 @@ To run your project, navigate to the directory and run one of the following yarn
 - yarn add react-native-paper
 - expo install expo-location
 - expo install react-native-reanimated
-
+- yarn add --dev react-native-svg-transformer
 ```
 
 > Config
@@ -108,7 +108,6 @@ To run your project, navigate to the directory and run one of the following yarn
 
 > Referencias:
 
-
 - [repository git class](https://github.com/joserrodrigues/fiap_mba_prs_ts_rn_v2)
 
 - [doc API](https://fiap-reactjs-presencial.herokuapp.com/doc)
@@ -118,7 +117,6 @@ To run your project, navigate to the directory and run one of the following yarn
 - [notion 2a](https://joserubensrodrigues.notion.site/Aula-2-Layouts-React-Navigation-255cc28327634cdab9e85c957bf49f19)
 
 - [notion 2b](https://joserubensrodrigues.notion.site/Aula-2-Layouts-React-Navigator-Parte-B-c50121c00b634eb78dce16ccf4daf74e)
-
 
 - [notion 3a](https://joserubensrodrigues.notion.site/Aula-3-Flat-List-f7b2acc496d34e8c8410909e375c0b38)
 
@@ -132,10 +130,11 @@ To run your project, navigate to the directory and run one of the following yarn
 
 - [stackoverflow#1](https://stackoverflow.com/questions/74428450/error-invariant-violation-failed-to-call-into-javascript-module-method-appregis)
 
+- [stackoverflow#2](https://stackoverflow.com/questions/65945886/why-am-error-element-type-is-invalid-expected-a-string-for-built-in-component)
+
+- [stackoverflow#3](https://pt.stackoverflow.com/questions/479094/problema-ao-adicionar-svg-no-react-native)
+
 - [redux medium](https://medium.com/reactbrasil/iniciando-com-redux-c14ca7b7dcf)
-
-
-
 
 > Objetivos:
 

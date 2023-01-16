@@ -30,4 +30,25 @@ async function getFavoriteProducts() {
   return api.get("/storeProducts/getFavProducts", config);
 }
 
-export default { getAllProducts, getFavoriteProducts };
+type IParamGetManageFavorite = {
+  productID: string;
+};
+const getManageFavorite = async (url: string, data: IParamGetLogin) => {
+  let token = await useGetStorageItem("user-token");
+  console.log("UserToken---->" + token);
+
+  if (!token) {
+    Alert.alert("Por favor, Efetue o Login primeiro. :)");
+  }
+
+  const config = {
+    data,
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
+
+  api.post(url + "storeProducts/manageFavorite", config);
+};
+
+export default { getManageFavorite, getAllProducts, getFavoriteProducts };

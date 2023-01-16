@@ -8,7 +8,6 @@ import IProduct from "../../Interfaces/IProduct";
 import { Button } from "react-native-elements";
 import { useAppDispatch } from "../../Store/hooks";
 import { cleanUser } from "../../Store/Login/LoginSlice";
-
 type iProps = StackScreenProps<RootStackParamList, "Home">;
 
 const HomeController = ({ route, navigation }: iProps) => {
@@ -53,6 +52,7 @@ const HomeController = ({ route, navigation }: iProps) => {
       });
   };
 
+  
   const goToDetail = (item: IProduct) => {
     navigation.push("Details", {
       itemID: item._id,

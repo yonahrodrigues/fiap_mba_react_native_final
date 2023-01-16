@@ -49,3 +49,13 @@ export const StyledImage = styled(Image).attrs({
     margin: 10,
   },
 })``;
+
+export const ProdFavButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  background-color: #ffffff;
+  border: 1px solid #999999;
+  border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+`;
