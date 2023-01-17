@@ -33,9 +33,6 @@ const RegisterView = ({ submitForm, isLoadingAuth }: IProps) => {
         resizeMode="cover"
       >
         <FrontImageBackground>
-          <TopScreen>
-            <LogoDiv>Cadastro</LogoDiv>
-          </TopScreen>
           <BottomScreen>
             <LoginBox>
               <LabelLogin>Nome</LabelLogin>
@@ -50,7 +47,7 @@ const RegisterView = ({ submitForm, isLoadingAuth }: IProps) => {
                 leftIcon={{
                   type: "font-awesome",
                   name: "phone",
-                  color: "blue",
+                  color: "#085087",
                 }}
                 placeholderTextColor={"#999"}
                 autoCompleteType="telefone"
@@ -61,7 +58,7 @@ const RegisterView = ({ submitForm, isLoadingAuth }: IProps) => {
                 leftIcon={{
                   type: "font-awesome",
                   name: "envelope",
-                  color: "blue",
+                  color: "#085087",
                 }}
                 placeholderTextColor={"#999"}
                 autoCompleteType="email"
@@ -72,7 +69,7 @@ const RegisterView = ({ submitForm, isLoadingAuth }: IProps) => {
                 leftIcon={{
                   type: "font-awesome",
                   name: "lock",
-                  color: "blue",
+                  color: "#085087",
                 }}
                 secureTextEntry={true}
                 placeholderTextColor={"#999"}

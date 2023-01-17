@@ -2,10 +2,11 @@ import styled from "styled-components/native";
 import { Button } from "react-native-elements";
 import { ImageBackground } from "react-native";
 
-export const MainContainer = styled.View`
+export const MainContainer = styled.SafeAreaView`
+  background-color: #64afe8;
   flex: 1;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
 `;
 
 export const TopScreen = styled.View`
@@ -32,7 +33,7 @@ export const LogoDiv = styled.Text`
   font-size: 40px;
   font-weight: bold;
   text-align: center;
-  color: #006aff;
+  color: #085087;
 `;
 
 export const LoginBox = styled.View`
@@ -40,7 +41,7 @@ export const LoginBox = styled.View`
   margin: 35px;
   border-radius: 15px;
   border-width: 1px;
-  border-color: #1e00ff;
+  border-color: #085087;
   padding: 20px;
 `;
 
@@ -58,7 +59,7 @@ export const BottomButton = styled.View`
 
 export const StyledButton = styled(Button).attrs({
   buttonStyle: {
-    backgroundColor: "blue",
+    backgroundColor: "#085087",
     borderRadius: 10,
   },
   containerStyle: {

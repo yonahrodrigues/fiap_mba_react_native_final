@@ -15,6 +15,10 @@ const LoginController = () => {
 
   const navigation = useNavigation();
 
+  const handleMessageButtonCLick = () => {
+    navigation.navigate("Signup");
+  };
+
   const makeLogin = (userName: string, password: string) => {
     console.log("Loading Login - " + userName + " - " + password);
 
@@ -45,7 +49,13 @@ const LoginController = () => {
     makeLogin("etesteemail@email.com", "123456");
   };
 
-  return <LoginView submitForm={submitForm} isLoadingAuth={isLoadingAuth} />;
+  return (
+    <LoginView
+      handleMessageButtonCLick={handleMessageButtonCLick}
+      submitForm={submitForm}
+      isLoadingAuth={isLoadingAuth}
+    />
+  );
 };
 
 export default LoginController;

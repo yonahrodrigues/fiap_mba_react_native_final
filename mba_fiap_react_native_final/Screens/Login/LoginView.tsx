@@ -12,26 +12,29 @@ import {
   LoginBox,
   LogoDiv,
   MainContainer,
+  SignMessageButton,
+  SignMessageButtonText,
+  SignMessageButtonTextBold,
+  SignMessageView,
   StyledButton,
   StyledImageBackground,
   TopScreen,
 } from "./LoginStyles";
+import MerchantLogo from "../../assets/logo-merchant-center.svg";
 
 type IProps = {
   isLoadingAuth: boolean;
   submitForm: () => void;
 };
-const LoginView = ({ submitForm, isLoadingAuth }: IProps) => {
+const LoginView = ({
+  handleMessageButtonCLick,
+  submitForm,
+  isLoadingAuth,
+}: IProps) => {
   let infoButton = <StyledButton title="Login" onPress={submitForm} />;
   if (isLoadingAuth) {
     infoButton = <ActivityIndicator size="large" color="red" />;
   }
-
-  const navigation = useNavigation();
-
-  const irPraRegister = () => {
-    navigation.navigate("Register");
-  };
 
   return (
     <MainContainer>
@@ -42,9 +45,6 @@ const LoginView = ({ submitForm, isLoadingAuth }: IProps) => {
         resizeMode="cover"
       >
         <FrontImageBackground>
-          <TopScreen>
-            <LogoDiv>Loja-Produtos</LogoDiv>
-          </TopScreen>
           <BottomScreen>
             <LoginBox>
               <LabelLogin>Login</LabelLogin>
@@ -53,7 +53,7 @@ const LoginView = ({ submitForm, isLoadingAuth }: IProps) => {
                 leftIcon={{
                   type: "font-awesome",
                   name: "envelope",
-                  color: "red",
+                  color: "#085087",
                 }}
                 placeholderTextColor={"#999"}
                 autoCompleteType="email"
@@ -64,7 +64,7 @@ const LoginView = ({ submitForm, isLoadingAuth }: IProps) => {
                 leftIcon={{
                   type: "font-awesome",
                   name: "lock",
-                  color: "red",
+                  color: "#085087",
                 }}
                 secureTextEntry={true}
                 placeholderTextColor={"#999"}
@@ -72,14 +72,19 @@ const LoginView = ({ submitForm, isLoadingAuth }: IProps) => {
               />
               <BottomButton>{infoButton}</BottomButton>
             </LoginBox>
-            <View style={styles.button}>
-             
-              <Button
+            <SignMessageView>
+              <SignMessageButton
                 title="Registrar"
-                onPress={irPraRegister}
-                style={styles.button}
-              />
-            </View>
+                onPress={handleMessageButtonCLick}
+              >
+                <SignMessageButtonText>
+                  Ainda não possui um conta?
+                </SignMessageButtonText>
+                <SignMessageButtonTextBold>
+                  Registre-se
+                </SignMessageButtonTextBold>
+              </SignMessageButton>
+            </SignMessageView>
           </BottomScreen>
         </FrontImageBackground>
       </StyledImageBackground>
@@ -87,22 +92,4 @@ const LoginView = ({ submitForm, isLoadingAuth }: IProps) => {
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "black",
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
-  },
-});
 export default LoginView;
