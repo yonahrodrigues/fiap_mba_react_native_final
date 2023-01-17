@@ -33,22 +33,21 @@ async function getFavoriteProducts() {
 type IParamGetManageFavorite = {
   productID: string;
 };
-const getManageFavorite = async (url: string, data: IParamGetLogin) => {
+const getManageFavorite = async (
+  url: string,
+  data: IParamGetManageFavorite
+) => {
   let token = await useGetStorageItem("user-token");
-  console.log("UserToken---->" + token);
-
-  if (!token) {
-    Alert.alert("Por favor, Efetue o Login primeiro. :)");
+  if (token && data) {
+    console.log("UserTokenFavorite---->" + token);
+    console.log("UserTokenFavoriteDATA---->" + data);
+    const config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+    api.post(url + "storeProducts/manageFavorite", data, config);
   }
-
-  const config = {
-    data,
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  };
-
-  api.post(url + "storeProducts/manageFavorite", config);
 };
 
 export default { getManageFavorite, getAllProducts, getFavoriteProducts };

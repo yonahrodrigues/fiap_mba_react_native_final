@@ -25,16 +25,23 @@ type iProps = {
   dataConnection: IProduct[];
   isLoading: boolean;
   goToDetail: (item: IProduct) => void;
+  isFavorite: (item: string) => void;
 };
 
 // let info: IParamGetManageFavorite = {
 //   productID: item._id.toString(),
 // };
 
-const HomeView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
+const HomeView = ({
+  isFavorite,
+  dataConnection,
+  isLoading,
+  goToDetail,
+}: iProps) => {
   const RenderItem = ({ item }: { item: IProduct }) => {
-    function handleFavClick() {
+    function handleFavClick(item) {
       //todo aplicar logica favorited
+      isFavorite(item._id.toString());
     }
 
     return (
@@ -46,7 +53,7 @@ const HomeView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
           <TextsView>
             <View>
               <TextNameStyle>
-                <ProdFavButton onPress={handleFavClick}>
+                <ProdFavButton onPress={handleFavClick(item)}>
                   {item.favorite ? (
                     <FavoriteIconFull width="24" height="24" fill="#ff0000" />
                   ) : (

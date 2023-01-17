@@ -136,6 +136,7 @@ To run your project, navigate to the directory and run one of the following yarn
 
 - [redux medium](https://medium.com/reactbrasil/iniciando-com-redux-c14ca7b7dcf)
 
+-[axios config](https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/)
 > Objetivos:
 
 ```

@@ -28,12 +28,6 @@ const LoginView = ({ submitForm, isLoadingAuth }: IProps) => {
   }
 
   const navigation = useNavigation();
-  const irPraHome = () => {
-    navigation.navigate("Home");
-  };
-  const irPraFav = () => {
-    navigation.navigate("Favorite");
-  };
 
   const irPraRegister = () => {
     navigation.navigate("Register");
@@ -79,8 +73,7 @@ const LoginView = ({ submitForm, isLoadingAuth }: IProps) => {
               <BottomButton>{infoButton}</BottomButton>
             </LoginBox>
             <View style={styles.button}>
-              {/* <Button title="ir pra home" onPress={irPraHome} /> */}
-              {/* <Button title="ir pra Favoritos" onPress={irPraFav} /> */}
+             
               <Button
                 title="Registrar"
                 onPress={irPraRegister}

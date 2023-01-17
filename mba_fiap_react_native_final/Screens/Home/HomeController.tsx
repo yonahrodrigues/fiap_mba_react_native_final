@@ -9,12 +9,15 @@ import { Button } from "react-native-elements";
 import { useAppDispatch } from "../../Store/hooks";
 import { cleanUser } from "../../Store/Login/LoginSlice";
 type iProps = StackScreenProps<RootStackParamList, "Home">;
+import { getLogin, IParamGetLogin } from "../../Services/APIs/User/User";
 
 const HomeController = ({ route, navigation }: iProps) => {
   const [dataConnection, setDataConnection] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getProductsGetAPI = useAPI(ProductsAPI.getAllProducts);
+  const getFavoriteAPI = useAPI(ProductsAPI.getManageFavorite);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -52,7 +55,6 @@ const HomeController = ({ route, navigation }: iProps) => {
       });
   };
 
-  
   const goToDetail = (item: IProduct) => {
     navigation.push("Details", {
       itemID: item._id,
@@ -60,8 +62,31 @@ const HomeController = ({ route, navigation }: iProps) => {
     });
   };
 
+  const isFavorite = (productID: string) => {
+    let info: IParamIsFavorite = {
+      productID,
+    };
+
+    console.log("info==>" + info);
+
+    getFavoriteAPI
+      .requestPromise(JSON.stringify(info))
+      .then((res: any) => {
+        console.log(res.data);
+        console.log("Atualizado");
+        // dispatch(setUser({ user }));
+        // setIsLoadingAuth(false);
+        // navigation.navigate("Home");
+      })
+      .catch((error: any) => {
+        console.log("Retornou erro");
+        console.log(error);
+      });
+  };
+
   return (
     <HomeView
+      isFavorite={isFavorite}
       dataConnection={dataConnection}
       isLoading={isLoading}
       goToDetail={goToDetail}
