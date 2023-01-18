@@ -9,9 +9,27 @@ export const MainContainer = styled.SafeAreaView`
   justify-content: center;
 `;
 
-export const TopScreen = styled.View`
-  flex: 3;
-  align-content: center;
+export const SignMessageButtonText = styled.Text`
+  font-size: 16px;
+  color: #ffffff;
+`;
+
+export const SignMessageButtonTextBold = styled.Text`
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: bold;
+  margin-left: 5px;
+`;
+export const SignMessageButton = styled.TouchableOpacity`
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 20px;
+`;
+
+export const SignMessageView = styled.View`
+  margin-top: 20px;
+  flex-direction: row;
   justify-content: center;
 `;
 
@@ -28,13 +46,7 @@ export const FrontImageBackground = styled.View`
   background-color: rgba(0, 0, 0, 0.6);
 `;
 
-export const LogoDiv = styled.Text`
-  margin: 20px;
-  font-size: 40px;
-  font-weight: bold;
-  text-align: center;
-  color: #085087;
-`;
+
 
 export const LoginBox = styled.View`
   background-color: rgba(255, 255, 255, 0.8);

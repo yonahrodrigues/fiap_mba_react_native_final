@@ -8,18 +8,27 @@ import {
   FrontImageBackground,
   LabelLogin,
   LoginBox,
-  LogoDiv,
+
   MainContainer,
+  SignMessageButton,
+  SignMessageButtonText,
+  SignMessageButtonTextBold,
+  SignMessageView,
   StyledButton,
   StyledImageBackground,
-  TopScreen,
+
 } from "./RegisterStyles";
 
 type IProps = {
   isLoadingAuth: boolean;
   submitForm: () => void;
+  handleMessageButtonCLick: () => void;
 };
-const RegisterView = ({ submitForm, isLoadingAuth }: IProps) => {
+const RegisterView = ({
+  handleMessageButtonCLick,
+  submitForm,
+  isLoadingAuth,
+}: IProps) => {
   let infoButton = <StyledButton title="Registrar" onPress={submitForm} />;
   if (isLoadingAuth) {
     infoButton = <ActivityIndicator size="large" color="red" />;
@@ -77,6 +86,19 @@ const RegisterView = ({ submitForm, isLoadingAuth }: IProps) => {
               />
               <BottomButton>{infoButton}</BottomButton>
             </LoginBox>
+            <SignMessageView>
+              <SignMessageButton
+                title="Registrar"
+                onPress={handleMessageButtonCLick}
+              >
+                <SignMessageButtonText>
+                  Já possui um conta?
+                </SignMessageButtonText>
+                <SignMessageButtonTextBold>
+                  Efetue o Login
+                </SignMessageButtonTextBold>
+              </SignMessageButton>
+            </SignMessageView>
           </BottomScreen>
         </FrontImageBackground>
       </StyledImageBackground>

@@ -7,11 +7,17 @@ import IUserInfo from "../../Interfaces/iUserInfo";
 
 import { useAppDispatch } from "../../Store/hooks";
 import { setUser } from "../../Store/Login/LoginSlice";
+import { useNavigation } from "@react-navigation/native";
 
 const RegisterController = () => {
   const [isLoadingAuth, setIsLoadingAuth] = useState<boolean>(false);
   const getRegisterAPI = useAPI(getRegister);
-
+  const navigation = useNavigation();
+  const handleMessageButtonCLick = () => {
+    navigation.reset({
+      routes: [{ name: "Signin" }],
+    });
+  };
   const dispatch = useAppDispatch();
 
   const makeRegister = (
@@ -55,7 +61,13 @@ const RegisterController = () => {
     );
   };
 
-  return <RegisterView submitForm={submitForm} isLoadingAuth={isLoadingAuth} />;
+  return (
+    <RegisterView
+      handleMessageButtonCLick={handleMessageButtonCLick}
+      submitForm={submitForm}
+      isLoadingAuth={isLoadingAuth}
+    />
+  );
 };
 
 export default RegisterController;
