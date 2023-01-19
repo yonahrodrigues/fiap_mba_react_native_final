@@ -7,6 +7,7 @@ import { persistor, store } from "./Store/store";
 import { Provider } from "react-redux";
 
 import UserContext from "./Context/UserContext";
+import { MainDrawer } from "./Routes/MainDrawer";
 
 const App = () => {
   return (

@@ -12,7 +12,7 @@ const PreloadController = () => {
       console.log("temToken===>  " + token);
       if (token) {
         //valida token
-        navigation.navigate("MainTab");
+        navigation.navigate("MainDrawer");
       } else {
         //login
         navigation.navigate("Signin");

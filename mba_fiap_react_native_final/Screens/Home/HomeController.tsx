@@ -52,6 +52,8 @@ const HomeController = ({ route, navigation }: iProps) => {
       })
       .catch((error: string) => {
         console.log(error);
+        console.log("ERRO 500 JWT EXPIRADO::::");
+        navigation.navigate("Signin");
       });
   };
 
@@ -81,6 +83,8 @@ const HomeController = ({ route, navigation }: iProps) => {
       .catch((error: any) => {
         console.log("Retornou erro");
         console.log(error);
+        // console.log("ERRO 500 JWT EXPIRADO::::");
+        // navigation.navigate("Signin");
       });
   };
 

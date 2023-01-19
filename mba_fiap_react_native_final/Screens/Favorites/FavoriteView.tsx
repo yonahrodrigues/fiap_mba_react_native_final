@@ -14,6 +14,7 @@ import {
   TextDetail,
   Separator,
   StyledImage,
+  ListArea,
 } from "./FavoriteStyles";
 import DrawerMenu from "../../Components/DrawerMenu/DrawerMenu";
 
@@ -64,14 +65,15 @@ const FavoriteView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
     <MainSafeAreaView>
       <DrawerMenu />
       {loadingBox}
-      <FlatList
-        data={dataConnection}
-        renderItem={({ item }: { item: IProduct }) => (
-          <RenderItem item={item} />
-        )}
-        keyExtractor={(item: IProduct) => item._id.toString()}
-        testID="flatListHome"
-      />
+      <ListArea>
+        <FlatList
+          data={dataConnection}
+          renderItem={({ item }: { item: IProduct }) => (
+            <RenderItem item={item} />
+          )}
+          keyExtractor={(item: IProduct) => item._id.toString()}
+        />
+      </ListArea>
     </MainSafeAreaView>
   );
 };

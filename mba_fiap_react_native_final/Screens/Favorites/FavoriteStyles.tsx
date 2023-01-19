@@ -49,3 +49,14 @@ export const StyledImage = styled(Image).attrs({
     margin: 10,
   },
 })``;
+
+export const ListArea = styled.View`
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin-top: 70px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+`;

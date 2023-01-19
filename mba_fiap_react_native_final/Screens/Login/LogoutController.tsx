@@ -4,17 +4,18 @@ import React, { useContext } from "react";
 import { UserContext } from "../../Context/UserContext";
 import { useNavigation } from "@react-navigation/native";
 import { View } from "react-native";
+import { useRemoveStorageItem } from "../../Services/Storage/StorageServices";
 
-const LogoutController = () => {
+const LogoutController = (props) => {
   const { dispatch: userDispatch } = useContext(UserContext);
   const navigation = useNavigation();
 
-  const makeLogout = () => {
-    userDispatch({
-      type: "cleanUser",
-      payload: {},
-    });
+  const removeToken = async () => {
+    await useRemoveStorageItem("user-token");
+  };
 
+  const makeLogout = () => {
+    removeToken();
     navigation.navigate("Signin");
   };
   makeLogout();

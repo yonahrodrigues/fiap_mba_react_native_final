@@ -49,7 +49,7 @@ const LoginController = () => {
           setIsLoadingAuth(false);
           //navigation.navigate("Home");
           navigation.reset({
-            routes: [{ name: "MainTab" }],
+            routes: [{ name: "MainDrawer" }],
           });
         })
         .catch((error: any) => {

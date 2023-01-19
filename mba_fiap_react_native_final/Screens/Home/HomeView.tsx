@@ -13,6 +13,7 @@ import {
   TextDetail,
   Separator,
   ProdFavButton,
+  ListArea,
 } from "./HomeStyles";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import DrawerMenu from "../../Components/DrawerMenu/DrawerMenu";
@@ -41,6 +42,7 @@ const HomeView = ({
   const RenderItem = ({ item }: { item: IProduct }) => {
     function handleFavClick(item) {
       //todo aplicar logica favorited
+
       isFavorite(item._id.toString());
     }
 
@@ -55,15 +57,15 @@ const HomeView = ({
               <TextNameStyle>
                 <ProdFavButton onPress={handleFavClick(item)}>
                   {item.favorite ? (
-                    <FavoriteIconFull width="24" height="24" fill="#ff0000" />
+                    <FavoriteIconFull width="24" height="24" fill="#4400ff" />
                   ) : (
-                    <FavoriteIcon width="24" height="24" fill="#ff0000" />
+                    <FavoriteIcon width="24" height="24" fill="#4400ff" />
                   )}
                 </ProdFavButton>
-                <TextTitle>{item.name}</TextTitle>
+                <TextTitle> R${item.price}</TextTitle>
               </TextNameStyle>
               <TextNameStyle>
-                <TextDetail>R${item.price}</TextDetail>
+                <TextDetail>{item.name}</TextDetail>
               </TextNameStyle>
               <Button />
             </View>
@@ -85,27 +87,21 @@ const HomeView = ({
     );
   }
 
-  const navigation = useNavigation();
-
-  const irPraFav = () => {
-    navigation.navigate("Favorite");
-  };
-
   return (
     <MainSafeAreaView>
       <DrawerMenu />
 
       {/* <MainDrawer /> */}
       {loadingBox}
-      <FlatList
-        data={dataConnection}
-        renderItem={({ item }: { item: IProduct }) => (
-          <RenderItem item={item} />
-        )}
-        keyExtractor={(item: IProduct) => item._id.toString()}
-        testID="flatListHome"
-      />
-      <Button title="ver meus Favoritos" onPress={irPraFav} />
+      <ListArea>
+        <FlatList
+          data={dataConnection}
+          renderItem={({ item }: { item: IProduct }) => (
+            <RenderItem item={item} />
+          )}
+          keyExtractor={(item: IProduct) => item._id.toString()}
+        />
+      </ListArea>
     </MainSafeAreaView>
   );
 };

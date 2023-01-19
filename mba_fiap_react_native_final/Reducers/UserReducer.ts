@@ -16,10 +16,7 @@ export const initialState: UserState = {
 };
 
 export const UserReducer = (state, action) => {
-  const removeToken = async () => {
-    await useRemoveStorageItem("user-token");
-  };
-
+  
   const addToken = async (token: string) => {
     await useSetStorageItem("user-token", token);
   };
@@ -32,12 +29,6 @@ export const UserReducer = (state, action) => {
       }
       return { ...state, user: action.payload.user };
     case "cleanUser":
-      removeToken();
-      const navigation = useNavigation();
-      console.log("saindo");
-      navigation.reset({
-        routes: [{ name: "Signin" }],
-      });
       return { ...state, user: null };
     default:
       return state;
