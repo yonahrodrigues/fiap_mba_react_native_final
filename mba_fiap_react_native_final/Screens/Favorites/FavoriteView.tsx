@@ -1,5 +1,5 @@
 import React from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, TouchableOpacity } from "react-native";
 
 import Colors from "../../Styles/Colors";
 import IProduct from "../../Interfaces/IProduct";
@@ -17,6 +17,8 @@ import {
   ListArea,
 } from "./FavoriteStyles";
 import DrawerMenu from "../../Components/DrawerMenu/DrawerMenu";
+import { useNavigation } from "@react-navigation/native";
+import { Icon } from "react-native-elements";
 
 type iProps = {
   dataConnection: IProduct[];
@@ -60,10 +62,22 @@ const FavoriteView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
       />
     );
   }
-
+  const navigation = useNavigation();
   return (
     <MainSafeAreaView>
-      <DrawerMenu />
+      <TouchableOpacity
+        onPress={() => navigation.toggleDrawer()}
+        style={{ padding: 5 }}
+      >
+        <Icon
+          name="bars"
+          type="font-awesome"
+          size={20}
+          tvParallaxProperties={undefined}
+          color={Colors.HeaderTintColor}
+          style={{ marginLeft: 10 }}
+        />
+      </TouchableOpacity>
       {loadingBox}
       <ListArea>
         <FlatList

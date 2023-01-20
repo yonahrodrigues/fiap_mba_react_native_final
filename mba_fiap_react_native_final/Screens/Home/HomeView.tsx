@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, FlatList } from "react-native";
+import { View, FlatList, TouchableOpacity } from "react-native";
 import Colors from "../../Styles/Colors";
 import IProduct from "../../Interfaces/IProduct";
 import {
@@ -21,12 +21,17 @@ import MainDrawer from "../../Routes/MainDrawer";
 import FavoriteIcon from "../../assets/favorite.svg";
 import FavoriteIconFull from "../../assets/favorite_full.svg";
 import useAPI from "../../Services/APIs/Common/useAPI";
-
+import { Icon } from "react-native-elements";
+import { LocationObject } from "expo-location";
 type iProps = {
   dataConnection: IProduct[];
   isLoading: boolean;
   goToDetail: (item: IProduct) => void;
   isFavorite: (item: string) => void;
+  position: LocationObject | null;
+  statusPosition: number;
+  startGetGeoLocation: (type: number) => void;
+  cleanInfo: () => void;
 };
 
 // let info: IParamGetManageFavorite = {
@@ -38,6 +43,10 @@ const HomeView = ({
   dataConnection,
   isLoading,
   goToDetail,
+  position,
+  statusPosition,
+  startGetGeoLocation,
+  cleanInfo,
 }: iProps) => {
   const RenderItem = ({ item }: { item: IProduct }) => {
     function handleFavClick(item) {
@@ -55,7 +64,7 @@ const HomeView = ({
           <TextsView>
             <View>
               <TextNameStyle>
-                <ProdFavButton onPress={handleFavClick(item)}>
+                <ProdFavButton onPress={() => handleFavClick(item)}>
                   {item.favorite ? (
                     <FavoriteIconFull width="24" height="24" fill="#4400ff" />
                   ) : (
@@ -86,12 +95,23 @@ const HomeView = ({
       />
     );
   }
+  const navigation = useNavigation();
 
   return (
     <MainSafeAreaView>
-      <DrawerMenu />
-
-      {/* <MainDrawer /> */}
+      <TouchableOpacity
+        onPress={() => navigation.toggleDrawer()}
+        style={{ padding: 5 }}
+      >
+        <Icon
+          name="bars"
+          type="font-awesome"
+          size={20}
+          tvParallaxProperties={undefined}
+          color={Colors.HeaderTintColor}
+          style={{ marginLeft: 10 }}
+        />
+      </TouchableOpacity>
       {loadingBox}
       <ListArea>
         <FlatList

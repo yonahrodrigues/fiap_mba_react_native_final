@@ -2,12 +2,16 @@ import styled from "styled-components/native";
 import { Image } from "react-native-elements";
 import Colors from "../../Styles/Colors";
 
-export const MainContainer = styled.View`
+export const MainContainer = styled.SafeAreaView`
   flex: 1;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
 `;
 
+export const MenuBack = styled.TouchableOpacity`
+  margin: 10px;
+  font-size: 25px;
+`;
 export const TextName = styled.Text`
   margin: 10px;
   font-size: 25px;

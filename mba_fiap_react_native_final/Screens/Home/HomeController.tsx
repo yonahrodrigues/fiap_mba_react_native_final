@@ -10,33 +10,14 @@ import { useAppDispatch } from "../../Store/hooks";
 import { cleanUser } from "../../Store/Login/LoginSlice";
 type iProps = StackScreenProps<RootStackParamList, "Home">;
 import { getLogin, IParamGetLogin } from "../../Services/APIs/User/User";
-
+import * as Location from "expo-location";
+import { LocationObject } from "expo-location";
 const HomeController = ({ route, navigation }: iProps) => {
   const [dataConnection, setDataConnection] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getProductsGetAPI = useAPI(ProductsAPI.getAllProducts);
   const getFavoriteAPI = useAPI(ProductsAPI.getManageFavorite);
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    // Use `setOptions` to update the button that we previously specified
-    // Now the button includes an `onPress` handler to update the count
-    navigation.setOptions({
-      headerRight: () => (
-        <Button
-          onPress={() => {
-            dispatch(cleanUser());
-            navigation.navigate("MyPosition");
-          }}
-          title="Logoff"
-          type="clear"
-          titleStyle={{ color: "white" }}
-        />
-      ),
-    });
-  }, [navigation]);
 
   useEffect(() => {
     getDataPage();
@@ -69,23 +50,53 @@ const HomeController = ({ route, navigation }: iProps) => {
       productID,
     };
 
-    console.log("info==>" + info);
-
+    console.log("info==>:::" + JSON.stringify(info));
+    setIsLoading(true);
     getFavoriteAPI
-      .requestPromise(JSON.stringify(info))
-      .then((res: any) => {
-        console.log(res.data);
-        console.log("Atualizado");
-        // dispatch(setUser({ user }));
-        // setIsLoadingAuth(false);
-        // navigation.navigate("Home");
+      .requestPromise("", JSON.stringify(info))
+      .then((info: any) => {
+        getDataPage().then((info: any) => {
+          setDataConnection(info.products);
+        });
+        setIsLoading(false);
       })
       .catch((error: any) => {
         console.log("Retornou erro");
         console.log(error);
-        // console.log("ERRO 500 JWT EXPIRADO::::");
-        // navigation.navigate("Signin");
+        setIsLoading(false);
       });
+  };
+
+  //Criando os states para buscar a informação
+  const [position, setPosition] = useState<LocationObject | null>(null);
+  const [statusPosition, setStatusPosition] = useState<number>(0);
+
+  const startGetGeoLocation = (type: number) => {
+    setTimeout(async () => {
+      //Verifica se o usuário já deu a permissão e, caso não tenha, solicita a permissão
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      //Retorna o erro
+      if (status !== "granted") {
+        setStatusPosition(-1);
+        return;
+      }
+
+      //Com o permissão em ordem, busca a posição do usuário assincronamente
+      let currentPosition;
+      if (type === 0) {
+        currentPosition = await Location.getCurrentPositionAsync({});
+      } else {
+        currentPosition = await Location.getLastKnownPositionAsync({});
+      }
+
+      setPosition(currentPosition);
+      setStatusPosition(2);
+
+      console.log(currentPosition);
+    }, 1000);
+  };
+  const cleanInfo = () => {
+    setStatusPosition(0);
   };
 
   return (
@@ -94,6 +105,10 @@ const HomeController = ({ route, navigation }: iProps) => {
       dataConnection={dataConnection}
       isLoading={isLoading}
       goToDetail={goToDetail}
+      position={position}
+      statusPosition={statusPosition}
+      startGetGeoLocation={startGetGeoLocation}
+      cleanInfo={cleanInfo}
     />
   );
 };

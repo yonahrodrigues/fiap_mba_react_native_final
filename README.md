@@ -140,6 +140,10 @@ To run your project, navigate to the directory and run one of the following yarn
 
 -[github #1](https://github.com/facebook/react-native/issues/34688)
 
+- [fontawesome](https://fontawesome.com/v4/icons/)
+
+- [youtube#1](https://youtu.be/yQorw90HaT0) -[ docs](https://reactnavigation.org/docs/drawer-based-navigation/)
+
 > Objetivos:
 
 ```

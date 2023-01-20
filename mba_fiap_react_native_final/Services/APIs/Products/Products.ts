@@ -9,6 +9,7 @@ async function getAllProducts() {
   const config = {
     headers: {
       Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
     },
   };
   return api.get("/storeProducts", config);
@@ -25,6 +26,7 @@ async function getFavoriteProducts() {
   const config = {
     headers: {
       Authorization: "Bearer " + token,
+      "Content-Type": "application/json",
     },
   };
   return api.get("/storeProducts/getFavProducts", config);
@@ -33,10 +35,11 @@ async function getFavoriteProducts() {
 type IParamGetManageFavorite = {
   productID: string;
 };
-const getManageFavorite = async (
-  url: string,
-  data: IParamGetManageFavorite
-) => {
+const getManageFavorite = async (url: string, data: string) => {
+  console.log("***********");
+  console.log(url);
+  console.log(data);
+  console.log("***********");
   let token = await useGetStorageItem("user-token");
   if (token && data) {
     console.log("UserTokenFavorite---->" + token);
@@ -44,6 +47,7 @@ const getManageFavorite = async (
     const config = {
       headers: {
         Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
       },
     };
     api.post(url + "storeProducts/manageFavorite", data, config);
