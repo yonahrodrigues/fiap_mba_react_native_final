@@ -50,6 +50,16 @@ export const StyledImage = styled(Image).attrs({
   },
 })``;
 
+export const ProdFavButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  background-color: #ffffff;
+  border: 1px solid #999999;
+  border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const ListArea = styled.View`
   flex-direction: column;
   align-items: center;

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, FlatList, TouchableOpacity } from "react-native";
+import { View, FlatList } from "react-native";
 import Colors from "../../Styles/Colors";
 import IProduct from "../../Interfaces/IProduct";
 import {
@@ -16,12 +16,8 @@ import {
   ListArea,
 } from "./HomeStyles";
 import { Button } from "react-native-elements/dist/buttons/Button";
-import DrawerMenu from "../../Components/DrawerMenu/DrawerMenu";
-import MainDrawer from "../../Routes/MainDrawer";
 import FavoriteIcon from "../../assets/favorite.svg";
 import FavoriteIconFull from "../../assets/favorite_full.svg";
-import useAPI from "../../Services/APIs/Common/useAPI";
-import { Icon } from "react-native-elements";
 import { LocationObject } from "expo-location";
 type iProps = {
   dataConnection: IProduct[];
@@ -50,8 +46,6 @@ const HomeView = ({
 }: iProps) => {
   const RenderItem = ({ item }: { item: IProduct }) => {
     function handleFavClick(item) {
-      //todo aplicar logica favorited
-
       isFavorite(item._id.toString());
     }
 
@@ -95,23 +89,9 @@ const HomeView = ({
       />
     );
   }
-  const navigation = useNavigation();
 
   return (
     <MainSafeAreaView>
-      <TouchableOpacity
-        onPress={() => navigation.toggleDrawer()}
-        style={{ padding: 5 }}
-      >
-        <Icon
-          name="bars"
-          type="font-awesome"
-          size={20}
-          tvParallaxProperties={undefined}
-          color={Colors.HeaderTintColor}
-          style={{ marginLeft: 10 }}
-        />
-      </TouchableOpacity>
       {loadingBox}
       <ListArea>
         <FlatList

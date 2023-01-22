@@ -3,8 +3,6 @@ import LoginView from "./LoginView";
 import useAPI from "../../Services/APIs/Common/useAPI";
 import { getLogin, IParamGetLogin } from "../../Services/APIs/User/User";
 import IUserInfo from "../../Interfaces/iUserInfo";
-//import { useAppDispatch } from "../../Store/hooks";
-//import { setUser } from "../../Store/Login/LoginSlice";
 import { UserContext } from "../../Context/UserContext";
 import { useNavigation } from "@react-navigation/native";
 
@@ -13,8 +11,6 @@ const LoginController = () => {
 
   const [isLoadingAuth, setIsLoadingAuth] = useState<boolean>(false);
   const getLoginAPI = useAPI(getLogin);
-
-  //const dispatch = useAppDispatch();
 
   const navigation = useNavigation();
 
@@ -45,11 +41,7 @@ const LoginController = () => {
               user,
             },
           });
-       
-          
-          //dispatch(setUser({ user }));
           setIsLoadingAuth(false);
-          //navigation.navigate("Home");
           navigation.reset({
             routes: [{ name: "MainDrawer" }],
           });

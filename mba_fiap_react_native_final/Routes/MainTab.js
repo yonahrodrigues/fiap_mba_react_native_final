@@ -3,12 +3,8 @@ import React from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import LoginController from "../Screens/Login/LoginController";
-import RegisterController from "../Screens/Register/RegisterController";
-import PreloadController from "../Screens/Preload/PreloadController";
 import FavoriteController from "../Screens/Favorites/FavoriteController";
 import HomeController from "../Screens/Home/HomeController";
-
 
 const Tab = createBottomTabNavigator();
 

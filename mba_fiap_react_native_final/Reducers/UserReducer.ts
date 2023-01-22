@@ -8,12 +8,14 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useContext } from "react";
 interface UserState {
   user: IUserInfo | null;
+  products: [] | null;
   favorites: [] | null;
 }
 
 export const initialState: UserState = {
   // Define the initial state using that type
   user: null,
+  products: [],
   favorites: [],
 };
 
@@ -35,13 +37,13 @@ export const UserReducer = (state, action) => {
     case "setFav":
       console.log("setFav+ " + JSON.stringify(action.payload));
       let fav: IUserInfo | null = action.payload?.fav ?? null;
-      return { ...state, favorites: action.payload.fav };
+      return { ...state, products: action.payload.fav };
 
     case "upFav":
       // console.log("upFav+ " + JSON.stringify(action.payload));
       // console.log("busca State atual");
 
-      const listaAtual = state.favorites;
+      const listaAtual = state.products;
       // console.log("busca Lista atual" + listaAtual);
       let listAtual = listaAtual.map(function (item) {
         if (item._id == action.payload.fav.productID) {
@@ -52,10 +54,30 @@ export const UserReducer = (state, action) => {
         }
       });
       // console.log("busca State atual::" + JSON.stringify(listAtual));
-      const newFavorites = { ...state, favorites: state.favorites, listAtual };
+      //const newFavorites = { ...state, favorites: state.listaItens, listAtual };
       // console.log("Update Favorites" + JSON.stringify(newFavorites));
 
-      return { ...state, favorites: state.favorites, listAtual };
+      return { ...state, products: state.products, listAtual };
+
+    case "favorite":
+      console.log("upFFFav+ " + JSON.stringify(action.payload));
+      // console.log("busca State atual");
+
+      const listaAtualFav = state.favorites;
+      console.log("busca Lista atual" + JSON.stringify(state));
+      let listAtualFav = listaAtualFav.map(function (item) {
+        if (item._id == action.payload.fav.productID) {
+          item.favorite = !item.favorite;
+          return item;
+        } else {
+          return item;
+        }
+      });
+      // console.log("busca State atual::" + JSON.stringify(listAtual));
+      //const newFavorites = { ...state, favorites: state.favorites, listAtualFav };
+      // console.log("Update Favorites" + JSON.stringify(newFavorites));
+
+      return { ...state, favorites: state.favorites, listAtualFav };
 
     default:
       return state;

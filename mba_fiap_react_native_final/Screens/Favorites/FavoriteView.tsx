@@ -15,35 +15,50 @@ import {
   Separator,
   StyledImage,
   ListArea,
+  ProdFavButton,
 } from "./FavoriteStyles";
+import { Button } from "react-native-elements/dist/buttons/Button";
 import DrawerMenu from "../../Components/DrawerMenu/DrawerMenu";
 import { useNavigation } from "@react-navigation/native";
 import { Icon } from "react-native-elements";
-
+import FavoriteIcon from "../../assets/favorite.svg";
+import FavoriteIconFull from "../../assets/favorite_full.svg";
 type iProps = {
   dataConnection: IProduct[];
   isLoading: boolean;
   goToDetail: (item: IProduct) => void;
+  isFavorite: (item: string) => void;
 };
 
-const FavoriteView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
+const FavoriteView = ({
+  isFavorite,
+  dataConnection,
+  isLoading,
+  goToDetail,
+}: iProps) => {
   const RenderItem = ({ item }: { item: IProduct }) => {
+    function handleFavClick(item) {
+      isFavorite(item._id.toString());
+    }
     return (
-      <ContainerItem
-        onPress={() => goToDetail(item)}
-        testID={"button" + item._id.toString()}
-      >
+      <ContainerItem onPress={() => goToDetail(item)}>
         <>
           <TextsView>
             <View>
               <TextNameStyle>
-                <TextTitle>{item.name}</TextTitle>
+                <ProdFavButton onPress={() => handleFavClick(item)}>
+                  {!item.favorite ? (
+                    <FavoriteIconFull width="24" height="24" fill="#ff0004" />
+                  ) : (
+                    <FavoriteIcon width="24" height="24" fill="#ff0004" />
+                  )}
+                </ProdFavButton>
+                <TextTitle> R${item.price}</TextTitle>
               </TextNameStyle>
               <TextNameStyle>
-                <TextDetail>
-                  R${item.price} - {item.favorite ? "Favorito" : "Comum"}
-                </TextDetail>
+                <TextDetail>{item.name}</TextDetail>
               </TextNameStyle>
+              <Button />
             </View>
           </TextsView>
           <Separator />
@@ -62,22 +77,9 @@ const FavoriteView = ({ dataConnection, isLoading, goToDetail }: iProps) => {
       />
     );
   }
-  const navigation = useNavigation();
+
   return (
     <MainSafeAreaView>
-      <TouchableOpacity
-        onPress={() => navigation.toggleDrawer()}
-        style={{ padding: 5 }}
-      >
-        <Icon
-          name="bars"
-          type="font-awesome"
-          size={20}
-          tvParallaxProperties={undefined}
-          color={Colors.HeaderTintColor}
-          style={{ marginLeft: 10 }}
-        />
-      </TouchableOpacity>
       {loadingBox}
       <ListArea>
         <FlatList

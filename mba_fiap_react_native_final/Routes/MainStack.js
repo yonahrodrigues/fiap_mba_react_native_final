@@ -7,7 +7,6 @@ import LoginController from "../Screens/Login/LoginController";
 import RegisterController from "../Screens/Register/RegisterController";
 import PreloadController from "../Screens/Preload/PreloadController";
 
-import { MainTab } from "./MainTab";
 import { MainDrawer } from "./MainDrawer";
 import DetailController from "../Screens/Detail/DetailController";
 

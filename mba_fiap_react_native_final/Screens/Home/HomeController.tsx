@@ -61,8 +61,7 @@ const HomeController = ({ route, navigation }: iProps) => {
     getFavoriteAPI
       .requestPromise("", JSON.stringify(info))
       .then((res: any) => {
-        // setDataConnection(info.products);
-        console.log("infoP==>:::!!!!!" + JSON.stringify(info));
+        //console.log("infoP==>:::!!!!!" + JSON.stringify(info));
         userDispatch({
           type: "upFav",
           payload: {
