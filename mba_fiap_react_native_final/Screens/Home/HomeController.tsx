@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import HomeView from "./HomeView";
 import { StackScreenProps } from "@react-navigation/stack";
-import { RootStackParamList } from "../../Routes/RouteController";
 import useAPI from "../../Services/APIs/Common/useAPI";
 import ProductsAPI from "../../Services/APIs/Products/Products";
 import IProduct from "../../Interfaces/IProduct";
@@ -12,10 +11,12 @@ type iProps = StackScreenProps<RootStackParamList, "Home">;
 import { getLogin, IParamGetLogin } from "../../Services/APIs/User/User";
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
+import { UserContext } from "../../Context/UserContext";
+
 const HomeController = ({ route, navigation }: iProps) => {
   const [dataConnection, setDataConnection] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  const { dispatch: userDispatch } = useContext(UserContext);
   const getProductsGetAPI = useAPI(ProductsAPI.getAllProducts);
   const getFavoriteAPI = useAPI(ProductsAPI.getManageFavorite);
 
@@ -30,6 +31,12 @@ const HomeController = ({ route, navigation }: iProps) => {
       .then((info: any) => {
         setIsLoading(false);
         setDataConnection(info.products);
+        userDispatch({
+          type: "setFav",
+          payload: {
+            fav: info.products,
+          },
+        });
       })
       .catch((error: string) => {
         console.log(error);
@@ -50,20 +57,22 @@ const HomeController = ({ route, navigation }: iProps) => {
       productID,
     };
 
-    console.log("info==>:::" + JSON.stringify(info));
-    setIsLoading(true);
+    // console.log("info==>:::" + JSON.stringify(info));
     getFavoriteAPI
       .requestPromise("", JSON.stringify(info))
-      .then((info: any) => {
-        getDataPage().then((info: any) => {
-          setDataConnection(info.products);
+      .then((res: any) => {
+        // setDataConnection(info.products);
+        console.log("infoP==>:::!!!!!" + JSON.stringify(info));
+        userDispatch({
+          type: "upFav",
+          payload: {
+            fav: info,
+          },
         });
-        setIsLoading(false);
       })
       .catch((error: any) => {
-        console.log("Retornou erro");
+        console.log("Retornou erro!!!");
         console.log(error);
-        setIsLoading(false);
       });
   };
 

@@ -36,13 +36,13 @@ type IParamGetManageFavorite = {
   productID: string;
 };
 const getManageFavorite = async (url: string, data: string) => {
-  console.log("***********");
-  console.log(url);
-  console.log(data);
-  console.log("***********");
+  //console.log("***********");
+  //console.log(url);
+  //console.log(data);
+  //console.log("***********");
   let token = await useGetStorageItem("user-token");
   if (token && data) {
-    console.log("UserTokenFavorite---->" + token);
+    // console.log("UserTokenFavorite---->" + token);
     console.log("UserTokenFavoriteDATA---->" + data);
     const config = {
       headers: {
@@ -50,7 +50,15 @@ const getManageFavorite = async (url: string, data: string) => {
         "Content-Type": "application/json",
       },
     };
-    api.post(url + "storeProducts/manageFavorite", data, config);
+    try {
+      //await
+    //console.log("Pre API");
+      api.post(url + "storeProducts/manageFavorite", data, config);
+     // console.log("POS API");
+      return data;
+    } catch (err: any) {
+      console.log("ERROAPI" + err.message || "Unexpected Error!");
+    }
   }
 };
 

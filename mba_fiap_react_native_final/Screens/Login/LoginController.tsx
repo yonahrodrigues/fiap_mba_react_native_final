@@ -45,6 +45,8 @@ const LoginController = () => {
               user,
             },
           });
+       
+          
           //dispatch(setUser({ user }));
           setIsLoadingAuth(false);
           //navigation.navigate("Home");

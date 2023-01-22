@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, SafeAreaView } from "react-native";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -7,7 +7,10 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 
-import { useRemoveStorageItem } from "../Services/Storage/StorageServices";
+import {
+  useRemoveStorageItem,
+  useGetStorageItem,
+} from "../Services/Storage/StorageServices";
 import { UserContext } from "../Context/UserContext";
 
 function CustomDrawer({ ...props }) {
@@ -25,9 +28,15 @@ function CustomDrawer({ ...props }) {
   };
   return (
     <DrawerContentScrollView {...props}>
-      <Text> Bem Vindo, {userState.user?.name}</Text>
-      <DrawerItemList {...props} />
-      <DrawerItem label="Logout" onPress={() => makeLogout()} />
+      <SafeAreaView>
+        <View style={{ justifyContent: "center", height: 200 }}>
+          <Text style={{ marginTop: 20, marginLeft: 12 }}>
+            {userState.user ? "Bem Vindo, " + userState.user?.name : ""}
+          </Text>
+          <DrawerItemList {...props} />
+          <DrawerItem label="Logout" onPress={() => makeLogout()} />
+        </View>
+      </SafeAreaView>
     </DrawerContentScrollView>
   );
 }

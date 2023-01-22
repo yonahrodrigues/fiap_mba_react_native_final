@@ -13,7 +13,6 @@ import PreloadController from "../Screens/Preload/PreloadController";
 
 import { MainTab } from "./MainTab";
 import DetailController from "../Screens/Detail/DetailController";
-import LogoutController from "../Screens/Login/LogoutController";
 import HomeController from "../Screens/Home/HomeController";
 
 import FavoriteController from "../Screens/Favorites/FavoriteController";

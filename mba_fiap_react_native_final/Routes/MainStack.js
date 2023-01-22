@@ -10,7 +10,6 @@ import PreloadController from "../Screens/Preload/PreloadController";
 import { MainTab } from "./MainTab";
 import { MainDrawer } from "./MainDrawer";
 import DetailController from "../Screens/Detail/DetailController";
-import LogoutController from "../Screens/Login/LogoutController";
 
 const Stack = createStackNavigator();
 
@@ -27,7 +26,6 @@ export const MainStack = () => {
       <Stack.Screen name="Signup" component={RegisterController} />
       <Stack.Screen name="Details" component={DetailController} />
       <Stack.Screen name="MainDrawer" component={MainDrawer} />
-      <Stack.Screen name="Logout" component={LogoutController} />
     </Stack.Navigator>
   );
 };
