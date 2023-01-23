@@ -4,10 +4,17 @@ import { StackScreenProps } from "@react-navigation/stack";
 import useAPI from "../../Services/APIs/Common/useAPI";
 import ProductsAPI from "../../Services/APIs/Products/Products";
 import IProduct from "../../Interfaces/IProduct";
-type iProps = StackScreenProps<RootStackParamList, "Home">;
+
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
 import { UserContext } from "../../Context/UserContext";
+import IPosition from "../../Interfaces/IPosition";
+type RootStackParamList = {
+  Home: undefined;
+  Details: { itemID: number; info: string };
+};
+
+type iProps = StackScreenProps<RootStackParamList, "Home">;
 
 const FavoriteController = ({ route, navigation }: iProps) => {
   const [dataConnection, setDataConnection] = useState<IProduct[]>([]);
@@ -41,10 +48,11 @@ const FavoriteController = ({ route, navigation }: iProps) => {
       });
   };
 
-  const goToDetail = (item: IProduct) => {
+  const goToDetail = (item: IProduct, position: IPosition) => {
     navigation.push("Details", {
       itemID: item._id,
       info: JSON.stringify(item),
+      position: JSON.stringify(position),
     });
   };
 

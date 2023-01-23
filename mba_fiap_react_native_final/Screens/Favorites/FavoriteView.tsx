@@ -1,5 +1,5 @@
 import React from "react";
-import { View, FlatList, TouchableOpacity } from "react-native";
+import { View, FlatList } from "react-native";
 
 import Colors from "../../Styles/Colors";
 import IProduct from "../../Interfaces/IProduct";
@@ -13,14 +13,10 @@ import {
   TextTitle,
   TextDetail,
   Separator,
-  StyledImage,
   ListArea,
   ProdFavButton,
 } from "./FavoriteStyles";
 import { Button } from "react-native-elements/dist/buttons/Button";
-import DrawerMenu from "../../Components/DrawerMenu/DrawerMenu";
-import { useNavigation } from "@react-navigation/native";
-import { Icon } from "react-native-elements";
 import FavoriteIcon from "../../assets/favorite.svg";
 import FavoriteIconFull from "../../assets/favorite_full.svg";
 type iProps = {

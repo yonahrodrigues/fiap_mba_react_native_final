@@ -1,7 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Button, StyleSheet } from "react-native";
-
 import { Input } from "react-native-elements";
 import { ActivityIndicator } from "react-native-paper";
 import {
@@ -10,7 +7,6 @@ import {
   FrontImageBackground,
   LabelLogin,
   LoginBox,
-  LogoDiv,
   MainContainer,
   SignMessageButton,
   SignMessageButtonText,
@@ -18,12 +14,11 @@ import {
   SignMessageView,
   StyledButton,
   StyledImageBackground,
-  TopScreen,
 } from "./LoginStyles";
-import MerchantLogo from "../../assets/logo-merchant-center.svg";
 
 type IProps = {
   isLoadingAuth: boolean;
+  handleMessageButtonCLick: () => void;
   submitForm: () => void;
 };
 const LoginView = ({

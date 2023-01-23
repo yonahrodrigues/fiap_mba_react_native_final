@@ -18,11 +18,12 @@ import {
 import { Button } from "react-native-elements/dist/buttons/Button";
 import FavoriteIcon from "../../assets/favorite.svg";
 import FavoriteIconFull from "../../assets/favorite_full.svg";
+import MyLocationIcon from "../../assets/my_location.svg";
 import { LocationObject } from "expo-location";
 type iProps = {
   dataConnection: IProduct[];
   isLoading: boolean;
-  goToDetail: (item: IProduct) => void;
+  goToDetail: (item: IProduct, position: LocationObject | null) => void;
   isFavorite: (item: string) => void;
   position: LocationObject | null;
   statusPosition: number;
@@ -30,19 +31,12 @@ type iProps = {
   cleanInfo: () => void;
 };
 
-// let info: IParamGetManageFavorite = {
-//   productID: item._id.toString(),
-// };
-
 const HomeView = ({
   isFavorite,
   dataConnection,
   isLoading,
   goToDetail,
   position,
-  statusPosition,
-  startGetGeoLocation,
-  cleanInfo,
 }: iProps) => {
   const RenderItem = ({ item }: { item: IProduct }) => {
     function handleFavClick(item) {
@@ -51,7 +45,7 @@ const HomeView = ({
 
     return (
       <ContainerItem
-        onPress={() => goToDetail(item)}
+        onPress={() => goToDetail(item, position)}
         testID={"button" + item._id.toString()}
       >
         <>
@@ -93,6 +87,17 @@ const HomeView = ({
   return (
     <MainSafeAreaView>
       {loadingBox}
+      <View>
+        {position ? <MyLocationIcon /> : ""}
+
+        <TextTitle>{position ? `Sua localização: ` : ""}</TextTitle>
+        <TextTitle>
+          {position ? `Latitude: ${position.coords.latitude}` : ""}
+        </TextTitle>
+        <TextTitle>
+          {position ? `Longitude: ${position.coords.longitude} ` : ""}
+        </TextTitle>
+      </View>
       <ListArea>
         <FlatList
           data={dataConnection}

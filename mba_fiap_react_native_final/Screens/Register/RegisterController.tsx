@@ -8,6 +8,8 @@ import IUserInfo from "../../Interfaces/iUserInfo";
 import { useAppDispatch } from "../../Store/hooks";
 import { setUser } from "../../Store/Login/LoginSlice";
 import { useNavigation } from "@react-navigation/native";
+import * as yup from "yup";
+import { setLocale } from "yup";
 
 const RegisterController = () => {
   const [isLoadingAuth, setIsLoadingAuth] = useState<boolean>(false);
@@ -34,6 +36,7 @@ const RegisterController = () => {
       email,
       password,
     };
+
     setIsLoadingAuth(true);
 
     getRegisterAPI
@@ -53,12 +56,48 @@ const RegisterController = () => {
   };
 
   const submitForm = () => {
-    makeRegister(
-      "nomeCLiente",
-      "11-122334-4332",
-      "nomecliente@email.com",
-      "123456"
-    );
+    let schema = yup.object().shape({
+      userName: yup.string().required(),
+      phone: yup
+        .string()
+        .matches(/^[0-9]{2}-[0-9]{4,5}-[0-9]{4}$/)
+        .required(),
+      email: yup.string().email().required(),
+      password: yup
+        .string()
+        .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+        .required(),
+    });
+    setLocale({
+      // use constant translation keys for messages without values
+      mixed: {
+        default: "field_invalid",
+      },
+    });
+    // check validity
+    schema
+      .validate({
+        userName: "nomeCLiente",
+        phone: "11-22334-4332",
+        email: "nomecliente@email.com",
+        password: "AAABBBBbb123456",
+      })
+      .then(function (valid) {
+        if (valid) {
+          makeRegister(
+            "nomeCLiente",
+            "11-122334-4332",
+            "nomecliente@email.com",
+            "AAABBB123456"
+          );
+        }
+      })
+      .catch(function (err) {
+        err.errors;
+        alert(`${err.errors}`);
+        setIsLoadingAuth(false);
+      });
+    setIsLoadingAuth(false);
   };
 
   return (

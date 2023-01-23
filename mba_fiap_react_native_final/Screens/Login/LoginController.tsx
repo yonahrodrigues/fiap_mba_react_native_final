@@ -5,6 +5,8 @@ import { getLogin, IParamGetLogin } from "../../Services/APIs/User/User";
 import IUserInfo from "../../Interfaces/iUserInfo";
 import { UserContext } from "../../Context/UserContext";
 import { useNavigation } from "@react-navigation/native";
+import * as yup from "yup";
+import { setLocale } from "yup";
 
 const LoginController = () => {
   const { dispatch: userDispatch } = useContext(UserContext);
@@ -20,40 +22,68 @@ const LoginController = () => {
     });
   };
 
+  let schema = yup.object().shape({
+    userName: yup.string().email().required(),
+    password: yup
+      .string()
+      .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+      .required(),
+  });
+
   const makeLogin = (userName: string, password: string) => {
-    console.log("Loading Login - " + userName + " - " + password);
+    console.log("Validando Login - " + userName + " - " + password);
+    setLocale({
+      // use constant translation keys for messages without values
+      mixed: {
+        default: "field_invalid",
+      },
+    });
+    // check validity
+    schema
+      .validate({
+        userName: "Aaaaaaaaaa@email.com",
+        password: "AAABBBCCCbb24",
+      })
+      .then(function (valid) {
+        console.log(
+          "Validando Login - " + userName + " - " + password + " valid" + valid
+        );
+        if (valid) {
+          console.log("Loading Login - " + userName + " - " + password);
 
-    if (userName && password) {
-      let info: IParamGetLogin = {
-        email: userName,
-        password: password,
-      };
-      setIsLoadingAuth(true);
+          let info: IParamGetLogin = {
+            email: userName,
+            password: password,
+          };
+          setIsLoadingAuth(true);
 
-      getLoginAPI
-        .requestPromise("", info)
-        .then((user: IUserInfo) => {
-          console.log("After Login");
-          console.log(user);
-          userDispatch({
-            type: "setUser",
-            payload: {
-              user,
-            },
-          });
-          setIsLoadingAuth(false);
-          navigation.reset({
-            routes: [{ name: "MainDrawer" }],
-          });
-        })
-        .catch((error: any) => {
-          console.log("Retornou erro");
-          console.log(error);
-          setIsLoadingAuth(false);
-        });
-    } else {
-      alert("Preencha os campos...");
-    }
+          getLoginAPI
+            .requestPromise("", info)
+            .then((user: IUserInfo) => {
+              console.log("After Login");
+              console.log(user);
+              userDispatch({
+                type: "setUser",
+                payload: {
+                  user,
+                },
+              });
+              setIsLoadingAuth(false);
+              navigation.reset({
+                routes: [{ name: "MainDrawer" }],
+              });
+            })
+            .catch((error: any) => {
+              console.log("Retornou erro");
+              console.log(error);
+              setIsLoadingAuth(false);
+            });
+        }
+      })
+      .catch(function (err) {
+        err.errors;
+        alert(`${err.errors}`);
+      });
   };
 
   const submitForm = () => {

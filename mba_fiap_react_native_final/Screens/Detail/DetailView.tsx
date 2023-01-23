@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, TouchableOpacity } from "react-native";
+import { ScrollView } from "react-native";
 
 import {
   MainContainer,
@@ -7,18 +7,21 @@ import {
   TextTitle,
   TextDetail,
   TextNoInfo,
-  StyledImage,
   MenuBack,
 } from "./DetailStyles";
 import Product from "../../Interfaces/IProduct";
 import { useNavigation } from "@react-navigation/native";
 import { Icon } from "react-native-elements";
 import Colors from "../../Styles/Colors";
+import IPosition from "../../Interfaces/IPosition";
 
 type iProps = {
   objectItem: Product | null;
+  objectPosition: IPosition | null;
 };
-const DetailView = ({ objectItem }: iProps) => {
+const DetailView = ({ objectItem, objectPosition }: iProps) => {
+ // console.log("OBJPOsition" + objectPosition);
+
   if (!objectItem) {
     return (
       <>
@@ -47,7 +50,17 @@ const DetailView = ({ objectItem }: iProps) => {
 
         <TextDetail> {objectItem.favorite ? "Sim" : "Não"}</TextDetail>
         <TextTitle>Sua Localização</TextTitle>
-        <TextDetail>{objectItem?.localization}</TextDetail>
+        <TextTitle>{objectPosition ? `Sua localização: ` : ""}</TextTitle>
+        <TextTitle>
+          {objectPosition
+            ? `Latitude: ${objectPosition.currentPosition.coords.latitude}`
+            : ""}
+        </TextTitle>
+        <TextTitle>
+          {objectPosition
+            ? `Longitude: ${objectPosition.currentPosition.coords.longitude} `
+            : ""}
+        </TextTitle>
         <TextTitle>Lojas com item em Estoque</TextTitle>
         <TextDetail>{JSON.stringify(objectItem.stores)}</TextDetail>
       </ScrollView>

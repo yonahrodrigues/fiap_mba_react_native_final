@@ -4,14 +4,21 @@ import { StackScreenProps } from "@react-navigation/stack";
 import useAPI from "../../Services/APIs/Common/useAPI";
 import ProductsAPI from "../../Services/APIs/Products/Products";
 import IProduct from "../../Interfaces/IProduct";
-import { Button } from "react-native-elements";
-import { useAppDispatch } from "../../Store/hooks";
-import { cleanUser } from "../../Store/Login/LoginSlice";
+type RootStackParamList = {
+  Home: undefined;
+  Details: { itemID: number; info: string };
+};
 type iProps = StackScreenProps<RootStackParamList, "Home">;
-import { getLogin, IParamGetLogin } from "../../Services/APIs/User/User";
+
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
 import { UserContext } from "../../Context/UserContext";
+import IPosition from "../../Interfaces/IPosition";
+
+
+interface IParamIsFavorite {
+  productID: string;
+}
 
 const HomeController = ({ route, navigation }: iProps) => {
   const [dataConnection, setDataConnection] = useState<IProduct[]>([]);
@@ -19,6 +26,46 @@ const HomeController = ({ route, navigation }: iProps) => {
   const { dispatch: userDispatch } = useContext(UserContext);
   const getProductsGetAPI = useAPI(ProductsAPI.getAllProducts);
   const getFavoriteAPI = useAPI(ProductsAPI.getManageFavorite);
+  const [position, setPosition] = useState<LocationObject | null>(null);
+  const [statusPosition, setStatusPosition] = useState<number>(0);
+
+  // useEffect(() => {
+  //   startGetGeoLocation(0);
+  // }, []);
+
+  const startGetGeoLocation = async (type: number) => {
+    setTimeout(async () => {
+     
+      let { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status !== "granted") {
+        setStatusPosition(-1);
+        return;
+      }
+
+      let currentPosition;
+      if (type === 0) {
+        currentPosition = await Location.getCurrentPositionAsync({});
+      } else {
+        currentPosition = await Location.getLastKnownPositionAsync({});
+      }
+
+      setPosition(currentPosition);
+      userDispatch({
+        type: "setPos",
+        payload: {
+          currentPosition,
+        },
+      });
+      setStatusPosition(2);
+
+      console.log(currentPosition);
+    }, 10000);
+  };
+
+  const cleanInfo = () => {
+    setStatusPosition(0);
+  };
 
   useEffect(() => {
     getDataPage();
@@ -37,6 +84,7 @@ const HomeController = ({ route, navigation }: iProps) => {
             fav: info.products,
           },
         });
+        startGetGeoLocation(0);
       })
       .catch((error: string) => {
         console.log(error);
@@ -45,10 +93,11 @@ const HomeController = ({ route, navigation }: iProps) => {
       });
   };
 
-  const goToDetail = (item: IProduct) => {
+  const goToDetail = (item: IProduct, position: IPosition) => {
     navigation.push("Details", {
       itemID: item._id,
       info: JSON.stringify(item),
+      position: JSON.stringify(position),
     });
   };
 
@@ -56,12 +105,9 @@ const HomeController = ({ route, navigation }: iProps) => {
     let info: IParamIsFavorite = {
       productID,
     };
-
-    // console.log("info==>:::" + JSON.stringify(info));
     getFavoriteAPI
       .requestPromise("", JSON.stringify(info))
       .then((res: any) => {
-        //console.log("infoP==>:::!!!!!" + JSON.stringify(info));
         userDispatch({
           type: "upFav",
           payload: {
@@ -75,38 +121,6 @@ const HomeController = ({ route, navigation }: iProps) => {
       });
   };
 
-  //Criando os states para buscar a informação
-  const [position, setPosition] = useState<LocationObject | null>(null);
-  const [statusPosition, setStatusPosition] = useState<number>(0);
-
-  const startGetGeoLocation = (type: number) => {
-    setTimeout(async () => {
-      //Verifica se o usuário já deu a permissão e, caso não tenha, solicita a permissão
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      //Retorna o erro
-      if (status !== "granted") {
-        setStatusPosition(-1);
-        return;
-      }
-
-      //Com o permissão em ordem, busca a posição do usuário assincronamente
-      let currentPosition;
-      if (type === 0) {
-        currentPosition = await Location.getCurrentPositionAsync({});
-      } else {
-        currentPosition = await Location.getLastKnownPositionAsync({});
-      }
-
-      setPosition(currentPosition);
-      setStatusPosition(2);
-
-      console.log(currentPosition);
-    }, 1000);
-  };
-  const cleanInfo = () => {
-    setStatusPosition(0);
-  };
-
   return (
     <HomeView
       isFavorite={isFavorite}
@@ -115,7 +129,6 @@ const HomeController = ({ route, navigation }: iProps) => {
       goToDetail={goToDetail}
       position={position}
       statusPosition={statusPosition}
-      startGetGeoLocation={startGetGeoLocation}
       cleanInfo={cleanInfo}
     />
   );

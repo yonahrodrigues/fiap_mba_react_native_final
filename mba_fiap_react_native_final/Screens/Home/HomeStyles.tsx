@@ -70,3 +70,26 @@ export const ListArea = styled.View`
   margin-left: 10px;
   margin-right: 10px;
 `;
+
+export const LocationArea = styled.View`
+  background-color: #308bd1;
+  height: 60px;
+  border-radius: 30px;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 30px;
+`;
+export const LocationInput = styled.TextInput`
+  flex: 1;
+  font-size: 16px;
+  color: #ffffff;
+`;
+export const LocationFinder = styled.TouchableOpacity`
+  width: 24px;
+  height: 24px;
+`;
+export const LoadingIcon = styled.ActivityIndicator`
+  margin-top: 50px;
+`;

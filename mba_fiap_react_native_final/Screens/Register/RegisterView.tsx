@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Input } from "react-native-elements";
 import { ActivityIndicator } from "react-native-paper";
 import {
@@ -8,7 +7,6 @@ import {
   FrontImageBackground,
   LabelLogin,
   LoginBox,
-
   MainContainer,
   SignMessageButton,
   SignMessageButtonText,
@@ -16,7 +14,6 @@ import {
   SignMessageView,
   StyledButton,
   StyledImageBackground,
-
 } from "./RegisterStyles";
 
 type IProps = {

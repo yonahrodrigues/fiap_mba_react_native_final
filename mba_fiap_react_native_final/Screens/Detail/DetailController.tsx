@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import DetailView from "./DetailView";
 import { StackScreenProps } from "@react-navigation/stack";
-import { RootStackParamList } from "../../Routes/RouteController";
+
 import IProduct from "../../Interfaces/IProduct";
+import IPosition from "../../Interfaces/IPosition";
+import { UserContext } from "../../Context/UserContext";
+
+type RootStackParamList = {
+  Details: { itemID: number; info: string };
+};
 
 type iProps = StackScreenProps<RootStackParamList, "Details">;
 
 const DetailController = ({ navigation, route }: iProps) => {
-    let objectItem = null;
-    if (route && route.params) {
-      const { info } = route.params;
-      objectItem = JSON.parse(info) as IProduct;
-    }
+  let objectItem = null;
+  let objectPosition = null;
+  if (route && route.params) {
+    const { info } = route.params;
+    objectItem = JSON.parse(info) as IProduct;
+  }
 
-    return <DetailView objectItem={objectItem} />;
+  const { state: userState } = useContext(UserContext);
+ 
+  objectPosition = userState?.position as IPosition;
+
+  return <DetailView objectItem={objectItem} objectPosition={objectPosition} />;
 };
 
 export default DetailController;

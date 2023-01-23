@@ -95,6 +95,11 @@ To run your project, navigate to the directory and run one of the following yarn
 - expo install expo-location
 - expo install react-native-reanimated
 - yarn add --dev react-native-svg-transformer
+- yarn add react-native-permissions
+- yarn add @react-native-community/geolocation
+- yarn add yup
+
+
 ```
 
 > Config
@@ -142,33 +147,37 @@ To run your project, navigate to the directory and run one of the following yarn
 
 - [fontawesome](https://fontawesome.com/v4/icons/)
 
-- [youtube#1](https://youtu.be/yQorw90HaT0) -[ docs](https://reactnavigation.org/docs/drawer-based-navigation/)
+- [youtube#1](https://youtu.be/yQorw90HaT0)
+
+-[ docs](https://reactnavigation.org/docs/drawer-based-navigation/)
+
+- [npmjs](https://www.npmjs.com/package/yup)
 
 > Objetivos:
 
 ```
 - [x] Deve listar produtos da Loja
-- [-] Deve permitir registro
-- [] Deve persistir login após o reflesh do app
-- [-] Apos o Login deve permitir visualizar detalhes de cada produto e em quais lojas esta disponível
-- [] Deve permitir favoritar o produto
-- [] Deve listar os produtos Favoritos de um usuário
-- [-] Tela Login com campo email e senha e botão pra cadastro
-- [-] Tela Cadastro com nome, telefone, email e senha
-- [] Utilizar Yup pra validar campos Login e Cadastro
+- [x] Deve permitir registro
+- [x] Deve persistir login após o reflesh do app
+- [x] Apos o Login deve permitir visualizar detalhes de cada produto e em quais lojas esta disponível
+- [x] Deve permitir favoritar o produto
+- [x] Deve listar os produtos Favoritos de um usuário
+- [x] Tela Login com campo email e senha e botão pra cadastro
+- [x] Tela Cadastro com nome, telefone, email e senha
+- [-] Utilizar Yup pra validar campos Login e Cadastro
 - [x] Tela de Produtos deve exibir campos:
      - Nome, preço, Favorito e botão detalhe
-- [] Tela de Produtos deve utilizar ListView com paginação
+- [-] Tela de Produtos deve utilizar ListView com paginação
 - [-] Tela de Produtos ao iniciar deve carregar a geolocalização do usuário
-- [-] Tela de Favoritos deve exibir campos:
+- [x-] Tela de Favoritos deve exibir campos:
      - Nome, preço, Favorito e botão detalhe
 - [-] Tela de Detalhe deve exibir:
      - Nome, preço, botão se é favoritado, mapa com a posição do usuário e as lojas onde está disponível
-- [] Menu Lateral em todas as telas principais com as seguintes opções:
+- [x] Menu Lateral em todas as telas principais com as seguintes opções:
     - nome do usuário
     - Principal (tela Produtos)
     - Favoritos (tela de Favoritos)
     - Botão de Logout
 
-- [] Trabalho concluído e requisitos atendidos. :)
+- [-] Trabalho concluído e requisitos atendidos. :)
 ```
