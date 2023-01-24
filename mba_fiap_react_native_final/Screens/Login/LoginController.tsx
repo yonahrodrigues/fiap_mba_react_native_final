@@ -7,6 +7,7 @@ import { UserContext } from "../../Context/UserContext";
 import { useNavigation } from "@react-navigation/native";
 import * as yup from "yup";
 import { setLocale } from "yup";
+import { Alert } from "react-native";
 
 const LoginController = () => {
   const { dispatch: userDispatch } = useContext(UserContext);
@@ -41,8 +42,8 @@ const LoginController = () => {
     // check validity
     schema
       .validate({
-        userName: "Aaaaaaaaaa@email.com",
-        password: "AAABBBCCCbb24",
+        userName,
+        password,
       })
       .then(function (valid) {
         console.log(
@@ -62,16 +63,20 @@ const LoginController = () => {
             .then((user: IUserInfo) => {
               console.log("After Login");
               console.log(user);
-              userDispatch({
-                type: "setUser",
-                payload: {
-                  user,
-                },
-              });
+              if (user.message != "User Not Found") {
+                userDispatch({
+                  type: "setUser",
+                  payload: {
+                    user,
+                  },
+                });
+                navigation.reset({
+                  routes: [{ name: "MainDrawer" }],
+                });
+              } else {
+                Alert.alert("Usuário ou senha invalida");
+              }
               setIsLoadingAuth(false);
-              navigation.reset({
-                routes: [{ name: "MainDrawer" }],
-              });
             })
             .catch((error: any) => {
               console.log("Retornou erro");
@@ -86,8 +91,11 @@ const LoginController = () => {
       });
   };
 
-  const submitForm = () => {
-    makeLogin("etesteemail@email.com", "123456");
+  const submitForm = async (username: string, password: string) => {
+    console.log(username, password);
+    if (username != "" && password != "") {
+      await makeLogin(username, password);
+    }
   };
 
   return (

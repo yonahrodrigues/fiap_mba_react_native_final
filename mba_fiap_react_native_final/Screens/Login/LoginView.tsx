@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "react-native-elements";
 import { ActivityIndicator } from "react-native-paper";
 import {
@@ -19,14 +19,22 @@ import {
 type IProps = {
   isLoadingAuth: boolean;
   handleMessageButtonCLick: () => void;
-  submitForm: () => void;
+  submitForm: (emailField: string, passwordField: string) => void;
 };
 const LoginView = ({
   handleMessageButtonCLick,
   submitForm,
   isLoadingAuth,
 }: IProps) => {
-  let infoButton = <StyledButton title="Login" onPress={submitForm} />;
+  const [emailField, setEmailField] = useState("");
+  const [passwordField, setPasswordField] = useState("");
+
+  let infoButton = (
+    <StyledButton
+      title="Login"
+      onPress={() => submitForm(emailField, passwordField)}
+    />
+  );
   if (isLoadingAuth) {
     infoButton = <ActivityIndicator size="large" color="red" />;
   }
@@ -52,6 +60,8 @@ const LoginView = ({
                 }}
                 placeholderTextColor={"#999"}
                 autoCompleteType="email"
+                value={emailField}
+                onChangeText={(t) => setEmailField(t)}
               />
               <LabelLogin>Senha</LabelLogin>
               <Input
@@ -64,6 +74,8 @@ const LoginView = ({
                 secureTextEntry={true}
                 placeholderTextColor={"#999"}
                 autoCompleteType="password"
+                value={passwordField}
+                onChangeText={(t) => setPasswordField(t)}
               />
               <BottomButton>{infoButton}</BottomButton>
             </LoginBox>

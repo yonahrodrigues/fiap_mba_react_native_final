@@ -14,7 +14,7 @@ import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
 import { UserContext } from "../../Context/UserContext";
 import IPosition from "../../Interfaces/IPosition";
-
+import { useRemoveStorageItem } from "../../Services/Storage/StorageServices";
 
 interface IParamIsFavorite {
   productID: string;
@@ -35,7 +35,6 @@ const HomeController = ({ route, navigation }: iProps) => {
 
   const startGetGeoLocation = async (type: number) => {
     setTimeout(async () => {
-     
       let { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status !== "granted") {
@@ -86,9 +85,11 @@ const HomeController = ({ route, navigation }: iProps) => {
         });
         startGetGeoLocation(0);
       })
-      .catch((error: string) => {
+      .catch(async (error: string) => {
         console.log(error);
         console.log("ERRO 500 JWT EXPIRADO::::");
+        const tokenExpired = await useRemoveStorageItem("user-token");
+        console.log("ERRO 500 JWT EXPIRADO::::+" + tokenExpired);
         navigation.navigate("Signin");
       });
   };

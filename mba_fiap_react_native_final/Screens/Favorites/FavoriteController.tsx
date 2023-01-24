@@ -9,6 +9,7 @@ import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
 import { UserContext } from "../../Context/UserContext";
 import IPosition from "../../Interfaces/IPosition";
+import { useRemoveStorageItem } from "../../Services/Storage/StorageServices";
 type RootStackParamList = {
   Home: undefined;
   Details: { itemID: number; info: string };
@@ -41,9 +42,11 @@ const FavoriteController = ({ route, navigation }: iProps) => {
           },
         });
       })
-      .catch((error: string) => {
+      .catch(async (error: string) => {
         console.log(error);
         console.log("ERRO 500 JWT EXPIRADO::::");
+        const tokenExpired = await useRemoveStorageItem("user-token");
+        console.log("ERRO 500 JWT EXPIRADO::::+" + tokenExpired);
         navigation.navigate("Signin");
       });
   };

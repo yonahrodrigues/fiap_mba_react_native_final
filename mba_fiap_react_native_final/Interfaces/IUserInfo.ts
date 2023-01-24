@@ -4,4 +4,5 @@ export default interface IUserInfo {
     phone: string;
     token: string;
     userId: string;
+    message?: string;
   }

@@ -10,6 +10,7 @@ import { setUser } from "../../Store/Login/LoginSlice";
 import { useNavigation } from "@react-navigation/native";
 import * as yup from "yup";
 import { setLocale } from "yup";
+import { Alert } from "react-native";
 
 const RegisterController = () => {
   const [isLoadingAuth, setIsLoadingAuth] = useState<boolean>(false);
@@ -43,9 +44,12 @@ const RegisterController = () => {
       .requestPromise("", info)
       .then((user: IUserInfo) => {
         console.log("After Register");
-        console.log(user);
-        console.log(user.token);
-        dispatch(setUser({ user }));
+        console.log(user.message);
+        if (user.message == "User created successfully") {
+          Alert.alert("Cadastro criado com sucesso");
+        } else {
+          Alert.alert("Erro ao efetuar cadastro, tente novamente...");
+        }
         setIsLoadingAuth(false);
       })
       .catch((error: any) => {
@@ -55,13 +59,17 @@ const RegisterController = () => {
       });
   };
 
-  const submitForm = () => {
+  const submitForm = (
+    userName: string,
+    phone: string,
+    email: string,
+    password: string
+  ) => {
+    console.log("REgister: " + userName, phone, email, password);
+
     let schema = yup.object().shape({
       userName: yup.string().required(),
-      phone: yup
-        .string()
-        .matches(/^[0-9]{2}-[0-9]{4,5}-[0-9]{4}$/)
-        .required(),
+      phone: yup.string().required(),
       email: yup.string().email().required(),
       password: yup
         .string()
@@ -77,19 +85,14 @@ const RegisterController = () => {
     // check validity
     schema
       .validate({
-        userName: "nomeCLiente",
-        phone: "11-22334-4332",
-        email: "nomecliente@email.com",
-        password: "AAABBBBbb123456",
+        userName,
+        phone,
+        email,
+        password,
       })
       .then(function (valid) {
         if (valid) {
-          makeRegister(
-            "nomeCLiente",
-            "11-122334-4332",
-            "nomecliente@email.com",
-            "AAABBB123456"
-          );
+          makeRegister(userName, phone, email, password);
         }
       })
       .catch(function (err) {

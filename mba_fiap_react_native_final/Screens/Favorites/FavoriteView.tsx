@@ -43,7 +43,7 @@ const FavoriteView = ({
             <View>
               <TextNameStyle>
                 <ProdFavButton onPress={() => handleFavClick(item)}>
-                  {!item.favorite ? (
+                  {item.favorite ? (
                     <FavoriteIconFull width="24" height="24" fill="#ff0004" />
                   ) : (
                     <FavoriteIcon width="24" height="24" fill="#ff0004" />

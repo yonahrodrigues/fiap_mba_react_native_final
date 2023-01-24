@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "react-native-elements";
 import { ActivityIndicator } from "react-native-paper";
 import {
@@ -18,7 +18,12 @@ import {
 
 type IProps = {
   isLoadingAuth: boolean;
-  submitForm: () => void;
+  submitForm: (
+    userName: string,
+    phone: string,
+    email: string,
+    password: string
+  ) => void;
   handleMessageButtonCLick: () => void;
 };
 const RegisterView = ({
@@ -26,7 +31,17 @@ const RegisterView = ({
   submitForm,
   isLoadingAuth,
 }: IProps) => {
-  let infoButton = <StyledButton title="Registrar" onPress={submitForm} />;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  let infoButton = (
+    <StyledButton
+      title="Registrar"
+      onPress={() => submitForm(userName, phone, email, password)}
+    />
+  );
   if (isLoadingAuth) {
     infoButton = <ActivityIndicator size="large" color="red" />;
   }
@@ -46,6 +61,8 @@ const RegisterView = ({
                 placeholder="Seu Nome"
                 placeholderTextColor={"#999"}
                 autoCompleteType="text"
+                value={userName}
+                onChangeText={(t) => setUserName(t)}
               />
               <LabelLogin>Telefone</LabelLogin>
               <Input
@@ -57,6 +74,8 @@ const RegisterView = ({
                 }}
                 placeholderTextColor={"#999"}
                 autoCompleteType="telefone"
+                value={phone}
+                onChangeText={(t) => setPhone(t)}
               />
               <LabelLogin>Email</LabelLogin>
               <Input
@@ -68,6 +87,8 @@ const RegisterView = ({
                 }}
                 placeholderTextColor={"#999"}
                 autoCompleteType="email"
+                value={email}
+                onChangeText={(t) => setEmail(t)}
               />
               <LabelLogin>Senha</LabelLogin>
               <Input
@@ -80,6 +101,8 @@ const RegisterView = ({
                 secureTextEntry={true}
                 placeholderTextColor={"#999"}
                 autoCompleteType="password"
+                value={password}
+                onChangeText={(t) => setPassword(t)}
               />
               <BottomButton>{infoButton}</BottomButton>
             </LoginBox>
