@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 
 import {
   MainContainer,
@@ -20,7 +20,7 @@ type iProps = {
   objectPosition: IPosition | null;
 };
 const DetailView = ({ objectItem, objectPosition }: iProps) => {
- // console.log("OBJPOsition" + objectPosition);
+  // console.log("OBJPOsition" + objectPosition);
 
   if (!objectItem) {
     return (
@@ -61,8 +61,22 @@ const DetailView = ({ objectItem, objectPosition }: iProps) => {
             ? `Longitude: ${objectPosition.currentPosition.coords.longitude} `
             : ""}
         </TextTitle>
-        <TextTitle>Lojas com item em Estoque</TextTitle>
-        <TextDetail>{JSON.stringify(objectItem.stores)}</TextDetail>
+        <TextTitle>
+          {objectItem.stores ? "Lojas com item em Estoque" : " "}
+        </TextTitle>
+        <View>
+          {objectItem.stores
+            ? objectItem.stores.map((item) => (
+                <>
+                  <TextName>{item.name}</TextName>
+                  <TextDetail>
+                    {item.address} Lat:{item.latitude} Long:{item.longitude}{" "}
+                  </TextDetail>
+                </>
+              ))
+            : ""}
+        </View>
+        {/* <TextDetail>{JSON.stringify(objectItem.stores)}</TextDetail> */}
       </ScrollView>
     </MainContainer>
   );

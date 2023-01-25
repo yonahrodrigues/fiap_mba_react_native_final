@@ -14,7 +14,7 @@ import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
 import { UserContext } from "../../Context/UserContext";
 import IPosition from "../../Interfaces/IPosition";
-import { useRemoveStorageItem } from "../../Services/Storage/StorageServices";
+import { useGetStorageItem, useRemoveStorageItem } from "../../Services/Storage/StorageServices";
 
 interface IParamIsFavorite {
   productID: string;
@@ -29,9 +29,18 @@ const HomeController = ({ route, navigation }: iProps) => {
   const [position, setPosition] = useState<LocationObject | null>(null);
   const [statusPosition, setStatusPosition] = useState<number>(0);
 
-  // useEffect(() => {
-  //   startGetGeoLocation(0);
-  // }, []);
+  const checkAuth = async () => {
+    let token = await useGetStorageItem("user-token");
+    console.log("VerificaToken===>  " + token);
+    if (!token) {
+      navigation.navigate("Signin");
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
+    //   startGetGeoLocation(0);
+  }, []);
 
   const startGetGeoLocation = async (type: number) => {
     setTimeout(async () => {

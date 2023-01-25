@@ -21,7 +21,7 @@ const FavoriteController = ({ route, navigation }: iProps) => {
   const [dataConnection, setDataConnection] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { dispatch: userDispatch } = useContext(UserContext);
-  const getProductsGetAPI = useAPI(ProductsAPI.getAllProducts);
+  const getProductsGetAPI = useAPI(ProductsAPI.getFavoriteProducts);
   const getFavoriteAPI = useAPI(ProductsAPI.getManageFavorite);
 
   useEffect(() => {
