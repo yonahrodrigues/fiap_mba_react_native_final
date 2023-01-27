@@ -25,10 +25,12 @@ const HomeController = ({ route, navigation }: iProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { dispatch: userDispatch } = useContext(UserContext);
   const getProductsGetAPI = useAPI(ProductsAPI.getAllProducts);
+  const getProductPaginate = useAPI(ProductsAPI.getAllProductsPaginate);
   const getFavoriteAPI = useAPI(ProductsAPI.getManageFavorite);
   const [position, setPosition] = useState<LocationObject | null>(null);
   const [statusPosition, setStatusPosition] = useState<number>(0);
-
+  const [page, setPage] = useState(1);
+  const [isListEnd, setIsListEnd] = useState(false);
   const checkAuth = async () => {
     let token = await useGetStorageItem("user-token");
     if (!token) {
@@ -71,8 +73,65 @@ const HomeController = ({ route, navigation }: iProps) => {
 
   useEffect(() => {
     checkAuth();
-    getDataPage();
+    // getDataPage();
+    getDataPaginate();
   }, []);
+
+  const getDataPaginate = async () => {
+    console.log("PAGE:" + page);
+    if (!isListEnd) {
+      getProductPaginate
+        .requestPromise(page)
+        .then((info: any) => {
+          console.log(info.products);
+          if (info.products.length > 0) {
+            setPage(page + 1);
+            setDataConnection([...dataConnection, ...info.products]);
+            userDispatch({
+              type: "setFav",
+              payload: {
+                fav: info.products,
+              },
+            });
+            setIsLoading(false);
+          }
+        })
+        .catch(async (error: string) => {
+          console.log(error);
+        });
+      //     setIsLoading(false);
+      //     setDataConnection(info.products);
+      //     setPage(page + 1);
+      //     userDispatch({
+      //       type: "setFav",
+      //       payload: {
+      //         fav: info.products,
+      //       },
+      //     });
+    } else {
+      setIsListEnd(true);
+      setIsLoading(false);
+    }
+    // getProductPaginate
+    //   .requestPromise(page)
+    //   .then((info: any) => {
+    //     setIsLoading(false);
+    //     setDataConnection(info.products);
+    //     setPage(page + 1);
+    //     userDispatch({
+    //       type: "setFav",
+    //       payload: {
+    //         fav: info.products,
+    //       },
+    //     });
+    //     startGetGeoLocation(0);
+    //   })
+    //   .catch(async (error: string) => {
+    //     console.log(error);
+    //     await useRemoveStorageItem("user-token");
+    //     navigation.navigate("Signin");
+    //   });
+  };
 
   const getDataPage = async () => {
     setIsLoading(true);
@@ -131,6 +190,7 @@ const HomeController = ({ route, navigation }: iProps) => {
       goToDetail={goToDetail}
       position={position}
       getDataPage={getDataPage}
+      getDataPaginate={getDataPaginate}
     />
   );
 };

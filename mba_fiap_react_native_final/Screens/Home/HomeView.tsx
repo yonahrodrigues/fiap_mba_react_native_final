@@ -28,6 +28,7 @@ type iProps = {
   isFavorite: (item: string) => void;
   getDataPage: () => void;
   position: LocationObject | null;
+  getDataPaginate: () => void;
 };
 
 const HomeView = ({
@@ -37,6 +38,7 @@ const HomeView = ({
   goToDetail,
   position,
   getDataPage,
+  getDataPaginate,
 }: iProps) => {
   const RenderItem = ({ item }: { item: IProduct }) => {
     function handleFavClick(item) {
@@ -100,8 +102,8 @@ const HomeView = ({
             <RenderItem item={item} />
           )}
           key={v4()}
-          onEndReached={getDataPage}
-          onEndReachedThreshold={0.1}
+          onEndReached={getDataPaginate}
+          onEndReachedThreshold={0.5}
         />
       </ListArea>
     </MainSafeAreaView>
