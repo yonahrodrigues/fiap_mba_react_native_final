@@ -1,6 +1,10 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
-
+import { useNavigation } from "@react-navigation/native";
+import { Icon } from "react-native-elements";
+import Colors from "../../Styles/Colors";
+import IPosition from "../../Interfaces/IPosition";
+import IProduct from "../../Interfaces/IProduct";
 import {
   MainContainer,
   TextName,
@@ -9,19 +13,12 @@ import {
   TextNoInfo,
   MenuBack,
 } from "./DetailStyles";
-import Product from "../../Interfaces/IProduct";
-import { useNavigation } from "@react-navigation/native";
-import { Icon } from "react-native-elements";
-import Colors from "../../Styles/Colors";
-import IPosition from "../../Interfaces/IPosition";
-
 type iProps = {
-  objectItem: Product | null;
+  objectItem: IProduct | null;
   objectPosition: IPosition | null;
 };
-const DetailView = ({ objectItem, objectPosition }: iProps) => {
- // console.log("OBJPOsition" + JSON.stringify(objectPosition));
 
+const DetailView = ({ objectItem, objectPosition }: iProps) => {
   if (!objectItem) {
     return (
       <>
@@ -49,16 +46,18 @@ const DetailView = ({ objectItem, objectPosition }: iProps) => {
         <TextTitle>Favorito</TextTitle>
 
         <TextDetail> {objectItem.favorite ? "Sim" : "Não"}</TextDetail>
-        <TextTitle>{objectPosition ? `Sua localização: ` : ""}</TextTitle>
+        <TextTitle>
+          {objectPosition != undefined ? `Sua localização: ` : ""}
+        </TextTitle>
         <TextDetail>
-          {objectPosition != null
+          {objectPosition?.coords?.latitude != undefined
             ? `Latitude: ${objectPosition?.coords?.latitude}`
-            : ""}
+            : "carregando..."}
         </TextDetail>
         <TextDetail>
-          {objectPosition != null
+          {objectPosition?.coords?.longitude != undefined
             ? `Longitude: ${objectPosition?.coords?.longitude} `
-            : ""}
+            : "carregando..."}
         </TextDetail>
         <TextTitle>
           {objectItem.stores ? "Lojas com item em Estoque" : " "}
@@ -75,7 +74,6 @@ const DetailView = ({ objectItem, objectPosition }: iProps) => {
               ))
             : ""}
         </View>
-        {/* <TextDetail>{JSON.stringify(objectItem.stores)}</TextDetail> */}
       </ScrollView>
     </MainContainer>
   );

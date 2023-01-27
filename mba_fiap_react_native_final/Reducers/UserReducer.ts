@@ -1,5 +1,5 @@
-import IUserInfo from "../Interfaces/iUserInfo";
 import { useSetStorageItem } from "../Services/Storage/StorageServices";
+import IUserInfo from "../Interfaces/iUserInfo";
 import IProduct from "../Interfaces/IProduct";
 import IPosition from "../Interfaces/IPosition";
 interface UserState {
@@ -37,7 +37,7 @@ export const UserReducer = (state, action) => {
 
     case "setPos":
       let pos: IPosition | null = action.payload?.currentPosition ?? null;
-      console.log("POS" + JSON.stringify(pos));
+      //console.log("POS" + JSON.stringify(pos));
       return { ...state, currentPosition: pos };
 
     case "upFav":

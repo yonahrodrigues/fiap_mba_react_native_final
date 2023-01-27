@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import RegisterView from "./RegisterView";
-
 import useAPI from "../../Services/APIs/Common/useAPI";
 import { getRegister, IParamGetRegister } from "../../Services/APIs/User/User";
 import IUserInfo from "../../Interfaces/iUserInfo";
-
-import { useAppDispatch } from "../../Store/hooks";
 import { useNavigation } from "@react-navigation/native";
 import * as yup from "yup";
 import { setLocale } from "yup";
@@ -20,7 +17,6 @@ const RegisterController = () => {
       routes: [{ name: "Signin" }],
     });
   };
-  const dispatch = useAppDispatch();
 
   const makeRegister = (
     userName: string,
@@ -28,8 +24,6 @@ const RegisterController = () => {
     email: string,
     password: string
   ) => {
-    console.log("Loading Register - " + userName + " - " + password);
-
     let info: IParamGetRegister = {
       name: userName,
       phone,
@@ -38,12 +32,9 @@ const RegisterController = () => {
     };
 
     setIsLoadingAuth(true);
-
     getRegisterAPI
       .requestPromise("", info)
       .then((user: IUserInfo) => {
-        console.log("After Register");
-        console.log(user.message);
         if (user.message == "User created successfully") {
           Alert.alert("Cadastro criado com sucesso");
         } else {
@@ -64,8 +55,6 @@ const RegisterController = () => {
     email: string,
     password: string
   ) => {
-    console.log("REgister: " + userName, phone, email, password);
-
     let schema = yup.object().shape({
       userName: yup.string().required(),
       phone: yup.string().required(),
@@ -95,7 +84,6 @@ const RegisterController = () => {
         }
       })
       .catch(function (err) {
-        err.errors;
         alert(`${err.errors}`);
         setIsLoadingAuth(false);
       });

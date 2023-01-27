@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import { View, FlatList } from "react-native";
 import Colors from "../../Styles/Colors";
 import IProduct from "../../Interfaces/IProduct";
@@ -27,10 +26,8 @@ type iProps = {
   isLoading: boolean;
   goToDetail: (item: IProduct, position: LocationObject | null) => void;
   isFavorite: (item: string) => void;
+  getDataPage: () => void;
   position: LocationObject | null;
-  statusPosition: number;
-  startGetGeoLocation: (type: number) => void;
-  cleanInfo: () => void;
 };
 
 const HomeView = ({
@@ -39,6 +36,7 @@ const HomeView = ({
   isLoading,
   goToDetail,
   position,
+  getDataPage,
 }: iProps) => {
   const RenderItem = ({ item }: { item: IProduct }) => {
     function handleFavClick(item) {
@@ -75,11 +73,7 @@ const HomeView = ({
   let loadingBox = null;
   if (isLoading) {
     loadingBox = (
-      <StyledActivityIndicator
-        size="large"
-        color={Colors.PrimaryDark}
-        testID="activityLoading"
-      />
+      <StyledActivityIndicator size="large" color={Colors.PrimaryDark} />
     );
   }
 
@@ -89,7 +83,9 @@ const HomeView = ({
       <View>
         {position ? <MyLocationIcon /> : ""}
 
-        <TextTitle>{position ? `Sua localização: ` : ""}</TextTitle>
+        <TextTitle>
+          {position ? `Sua localização: ` : "buscando localização..."}
+        </TextTitle>
         <TextTitle>
           {position ? `Latitude: ${position.coords.latitude}` : ""}
         </TextTitle>
@@ -103,9 +99,9 @@ const HomeView = ({
           renderItem={({ item }: { item: IProduct }) => (
             <RenderItem item={item} />
           )}
-          keyExtractor={(item) => {
-            v4();
-          }}
+          key={v4()}
+          onEndReached={getDataPage}
+          onEndReachedThreshold={0.1}
         />
       </ListArea>
     </MainSafeAreaView>

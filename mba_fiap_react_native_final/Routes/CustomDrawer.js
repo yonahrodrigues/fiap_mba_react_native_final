@@ -5,13 +5,11 @@ import {
   DrawerItemList,
   DrawerItem,
 } from "@react-navigation/drawer";
-
 import { useRemoveStorageItem } from "../Services/Storage/StorageServices";
 import { UserContext } from "../Context/UserContext";
 
 function CustomDrawer({ ...props }) {
   const { state: userState } = useContext(UserContext);
-  //console.log("MaindraweUserInfo ++= " + JSON.stringify(userState.user?.name));
 
   const removeToken = async () => {
     await useRemoveStorageItem("user-token");

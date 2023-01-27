@@ -1,4 +1,3 @@
-//import IUserInfo from "../../../Interfaces/iUserInfo";
 import api from "../Common/api";
 
 type IParamGetLogin = {

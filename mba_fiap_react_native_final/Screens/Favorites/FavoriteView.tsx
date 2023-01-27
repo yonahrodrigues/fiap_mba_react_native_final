@@ -1,11 +1,8 @@
 import React from "react";
 import { View, FlatList } from "react-native";
-
-import Colors from "../../Styles/Colors";
-import IProduct from "../../Interfaces/IProduct";
+import { Button } from "react-native-elements/dist/buttons/Button";
 import "react-native-get-random-values";
 import { v4 } from "uuid";
-
 import {
   ContainerItem,
   MainSafeAreaView,
@@ -18,7 +15,8 @@ import {
   ListArea,
   ProdFavButton,
 } from "./FavoriteStyles";
-import { Button } from "react-native-elements/dist/buttons/Button";
+import Colors from "../../Styles/Colors";
+import IProduct from "../../Interfaces/IProduct";
 import FavoriteIcon from "../../assets/favorite.svg";
 import FavoriteIconFull from "../../assets/favorite_full.svg";
 type iProps = {
@@ -85,9 +83,7 @@ const FavoriteView = ({
           renderItem={({ item }: { item: IProduct }) => (
             <RenderItem item={item} />
           )}
-          keyExtractor={(item) => {
-            v4();
-          }}
+          key={v4()}
         />
       </ListArea>
     </MainSafeAreaView>

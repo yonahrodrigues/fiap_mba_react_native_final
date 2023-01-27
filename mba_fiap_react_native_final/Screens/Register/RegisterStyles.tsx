@@ -46,8 +46,6 @@ export const FrontImageBackground = styled.View`
   background-color: rgba(0, 0, 0, 0.6);
 `;
 
-
-
 export const LoginBox = styled.View`
   background-color: rgba(255, 255, 255, 0.8);
   margin: 35px;

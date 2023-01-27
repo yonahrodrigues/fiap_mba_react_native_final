@@ -5,16 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 
 const PreloadController = () => {
   const navigation = useNavigation();
-
   useEffect(() => {
     const checkToken = async () => {
       let token = await useGetStorageItem("user-token");
-      console.log("temToken===>  " + token);
       if (token) {
-        //valida token
         navigation.navigate("MainDrawer");
       } else {
-        //login
         navigation.navigate("Signin");
       }
     };

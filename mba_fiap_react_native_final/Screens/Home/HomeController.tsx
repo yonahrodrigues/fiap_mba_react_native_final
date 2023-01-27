@@ -4,21 +4,18 @@ import { StackScreenProps } from "@react-navigation/stack";
 import useAPI from "../../Services/APIs/Common/useAPI";
 import ProductsAPI from "../../Services/APIs/Products/Products";
 import IProduct from "../../Interfaces/IProduct";
+import * as Location from "expo-location";
+import { LocationObject } from "expo-location";
+import { UserContext } from "../../Context/UserContext";
+import {
+  useGetStorageItem,
+  useRemoveStorageItem,
+} from "../../Services/Storage/StorageServices";
 type RootStackParamList = {
   Home: undefined;
   Details: { itemID: number; info: string };
 };
 type iProps = StackScreenProps<RootStackParamList, "Home">;
-
-import * as Location from "expo-location";
-import { LocationObject } from "expo-location";
-import { UserContext } from "../../Context/UserContext";
-import IPosition from "../../Interfaces/IPosition";
-import {
-  useGetStorageItem,
-  useRemoveStorageItem,
-} from "../../Services/Storage/StorageServices";
-
 interface IParamIsFavorite {
   productID: string;
 }
@@ -34,16 +31,10 @@ const HomeController = ({ route, navigation }: iProps) => {
 
   const checkAuth = async () => {
     let token = await useGetStorageItem("user-token");
-    // console.log("VerificaToken===>  " + token);
     if (!token) {
       navigation.navigate("Signin");
     }
   };
-
-  useEffect(() => {
-    checkAuth();
-    //   startGetGeoLocation(0);
-  }, []);
 
   const startGetGeoLocation = async (type: number) => {
     setTimeout(async () => {
@@ -100,16 +91,15 @@ const HomeController = ({ route, navigation }: iProps) => {
       })
       .catch(async (error: string) => {
         console.log(error);
-        const tokenExpired = await useRemoveStorageItem("user-token");
+        await useRemoveStorageItem("user-token");
         navigation.navigate("Signin");
       });
   };
 
-  const goToDetail = (item: IProduct, position: IPosition) => {
+  const goToDetail = (item: IProduct) => {
     navigation.push("Details", {
       itemID: item._id,
       info: JSON.stringify(item),
-      position: JSON.stringify(position),
     });
   };
 
@@ -140,8 +130,7 @@ const HomeController = ({ route, navigation }: iProps) => {
       isLoading={isLoading}
       goToDetail={goToDetail}
       position={position}
-      statusPosition={statusPosition}
-      cleanInfo={cleanInfo}
+      getDataPage={getDataPage}
     />
   );
 };

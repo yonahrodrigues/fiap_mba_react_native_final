@@ -1,22 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
-import FavoriteView from "./FavoriteView";
 import { StackScreenProps } from "@react-navigation/stack";
-import useAPI from "../../Services/APIs/Common/useAPI";
-import ProductsAPI from "../../Services/APIs/Products/Products";
-import IProduct from "../../Interfaces/IProduct";
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
+import useAPI from "../../Services/APIs/Common/useAPI";
+import ProductsAPI from "../../Services/APIs/Products/Products";
 import { UserContext } from "../../Context/UserContext";
-import IPosition from "../../Interfaces/IPosition";
 import {
   useGetStorageItem,
   useRemoveStorageItem,
 } from "../../Services/Storage/StorageServices";
+import FavoriteView from "./FavoriteView";
+import IProduct from "../../Interfaces/IProduct";
 type RootStackParamList = {
   Home: undefined;
   Details: { itemID: number; info: string };
 };
-
 type iProps = StackScreenProps<RootStackParamList, "Home">;
 
 const FavoriteController = ({ route, navigation }: iProps) => {
@@ -54,18 +52,15 @@ const FavoriteController = ({ route, navigation }: iProps) => {
       })
       .catch(async (error: string) => {
         console.log(error);
-        console.log("ERRO 500 JWT EXPIRADO::::");
-        const tokenExpired = await useRemoveStorageItem("user-token");
-        console.log("ERRO 500 JWT EXPIRADO::::+" + tokenExpired);
+        await useRemoveStorageItem("user-token");
         navigation.navigate("Signin");
       });
   };
 
-  const goToDetail = (item: IProduct, position: IPosition) => {
+  const goToDetail = (item: IProduct) => {
     navigation.push("Details", {
       itemID: item._id,
       info: JSON.stringify(item),
-      position: JSON.stringify(position),
     });
   };
 
