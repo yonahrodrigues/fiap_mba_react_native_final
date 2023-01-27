@@ -104,7 +104,12 @@ const HomeView = ({
               width: Dimensions.get("window").width,
               height: 200, //Dimensions.get("window").height,
             }}
-            region={region}
+            region={{
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              latitudeDelta: 3,
+              longitudeDelta: 3,
+            }}
             initialRegion={initialRegion}
           >
             <Marker

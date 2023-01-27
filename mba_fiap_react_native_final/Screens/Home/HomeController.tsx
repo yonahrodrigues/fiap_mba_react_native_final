@@ -28,8 +28,8 @@ interface IParamIsFavorite {
 }
 
 const initialRegion = {
-  latitude: 49.2576508,
-  longitude: -123.2639868,
+  latitude: 37.78825,
+  longitude: -122.4324,
   latitudeDelta: 100,
   longitudeDelta: 100,
 };
