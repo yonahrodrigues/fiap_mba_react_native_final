@@ -22,7 +22,7 @@ async function getAllProductsPaginate(page) {
     },
   };
   let pag = JSON.stringify(page);
-  let url = `/storeProducts/?page=${pag}perPage=10&orderDirection=asc`;
+  let url = `/storeProducts/?page=${pag}&perPage=10&orderDirection=asc`;
   console.log("URL" + url);
   return api.get(url, config);
 }

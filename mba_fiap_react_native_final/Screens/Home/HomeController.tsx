@@ -6,6 +6,13 @@ import ProductsAPI from "../../Services/APIs/Products/Products";
 import IProduct from "../../Interfaces/IProduct";
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
+import MapView, {
+  Callout,
+  Marker,
+  PROVIDER_GOOGLE,
+  Region,
+} from "react-native-maps";
+
 import { UserContext } from "../../Context/UserContext";
 import {
   useGetStorageItem,
@@ -20,6 +27,13 @@ interface IParamIsFavorite {
   productID: string;
 }
 
+const initialRegion = {
+  latitude: 49.2576508,
+  longitude: -123.2639868,
+  latitudeDelta: 100,
+  longitudeDelta: 100,
+};
+
 const HomeController = ({ route, navigation }: iProps) => {
   const [dataConnection, setDataConnection] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -30,6 +44,7 @@ const HomeController = ({ route, navigation }: iProps) => {
   const [position, setPosition] = useState<LocationObject | null>(null);
   const [statusPosition, setStatusPosition] = useState<number>(0);
   const [page, setPage] = useState(1);
+  const [region, setRegion] = useState<Region>();
   const [isListEnd, setIsListEnd] = useState(false);
   const checkAuth = async () => {
     let token = await useGetStorageItem("user-token");
@@ -55,6 +70,12 @@ const HomeController = ({ route, navigation }: iProps) => {
       }
 
       setPosition(currentPosition);
+      setRegion({
+        latitude: currentPosition.coords.latitude,
+        longitude: currentPosition.coords.longitude,
+        latitudeDelta: 3,
+        longitudeDelta: 3,
+      });
       userDispatch({
         type: "setPos",
         payload: {
@@ -73,7 +94,6 @@ const HomeController = ({ route, navigation }: iProps) => {
 
   useEffect(() => {
     checkAuth();
-    // getDataPage();
     getDataPaginate();
   }, []);
 
@@ -93,44 +113,17 @@ const HomeController = ({ route, navigation }: iProps) => {
                 fav: info.products,
               },
             });
+            startGetGeoLocation(0);
             setIsLoading(false);
           }
         })
         .catch(async (error: string) => {
           console.log(error);
         });
-      //     setIsLoading(false);
-      //     setDataConnection(info.products);
-      //     setPage(page + 1);
-      //     userDispatch({
-      //       type: "setFav",
-      //       payload: {
-      //         fav: info.products,
-      //       },
-      //     });
     } else {
       setIsListEnd(true);
       setIsLoading(false);
     }
-    // getProductPaginate
-    //   .requestPromise(page)
-    //   .then((info: any) => {
-    //     setIsLoading(false);
-    //     setDataConnection(info.products);
-    //     setPage(page + 1);
-    //     userDispatch({
-    //       type: "setFav",
-    //       payload: {
-    //         fav: info.products,
-    //       },
-    //     });
-    //     startGetGeoLocation(0);
-    //   })
-    //   .catch(async (error: string) => {
-    //     console.log(error);
-    //     await useRemoveStorageItem("user-token");
-    //     navigation.navigate("Signin");
-    //   });
   };
 
   const getDataPage = async () => {
@@ -191,6 +184,8 @@ const HomeController = ({ route, navigation }: iProps) => {
       position={position}
       getDataPage={getDataPage}
       getDataPaginate={getDataPaginate}
+      region={region}
+      initialRegion={initialRegion}
     />
   );
 };

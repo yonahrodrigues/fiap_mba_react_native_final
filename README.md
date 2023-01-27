@@ -100,7 +100,7 @@ To run your project, navigate to the directory and run one of the following yarn
 - yarn add yup
 = yarn add uuid
 - yarn add react-native-get-random-values
-
+- yarn add react-native-maps
 
 ```
 

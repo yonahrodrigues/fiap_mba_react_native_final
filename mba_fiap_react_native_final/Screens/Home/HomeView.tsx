@@ -1,9 +1,15 @@
-import React from "react";
-import { View, FlatList } from "react-native";
+import React, { useState } from "react";
+import { View, FlatList, Dimensions } from "react-native";
 import Colors from "../../Styles/Colors";
 import IProduct from "../../Interfaces/IProduct";
 import "react-native-get-random-values";
 import { v4 } from "uuid";
+import MapView, {
+  Callout,
+  Marker,
+  PROVIDER_GOOGLE,
+  Region,
+} from "react-native-maps";
 import {
   ContainerItem,
   MainSafeAreaView,
@@ -29,6 +35,8 @@ type iProps = {
   getDataPage: () => void;
   position: LocationObject | null;
   getDataPaginate: () => void;
+  initialRegion: {};
+  region: {};
 };
 
 const HomeView = ({
@@ -39,6 +47,8 @@ const HomeView = ({
   position,
   getDataPage,
   getDataPaginate,
+  initialRegion,
+  region,
 }: iProps) => {
   const RenderItem = ({ item }: { item: IProduct }) => {
     function handleFavClick(item) {
@@ -82,6 +92,37 @@ const HomeView = ({
   return (
     <MainSafeAreaView>
       {loadingBox}
+      {position ? (
+        <View
+          style={{
+            flex: 1,
+          }}
+        >
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            style={{
+              width: Dimensions.get("window").width,
+              height: 200, //Dimensions.get("window").height,
+            }}
+            region={region}
+            initialRegion={initialRegion}
+          >
+            <Marker
+              key={1}
+              calloutAnchor={{
+                x: 2.9,
+                y: 0.8,
+              }}
+              coordinate={{
+                latitude: Number(position?.coords.latitude),
+                longitude: Number(position?.coords.longitude),
+              }}
+            ></Marker>
+          </MapView>
+        </View>
+      ) : (
+        ""
+      )}
       <View>
         {position ? <MyLocationIcon /> : ""}
 
