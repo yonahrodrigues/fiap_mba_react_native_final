@@ -3,6 +3,8 @@ import { View, FlatList } from "react-native";
 
 import Colors from "../../Styles/Colors";
 import IProduct from "../../Interfaces/IProduct";
+import "react-native-get-random-values";
+import { v4 } from "uuid";
 
 import {
   ContainerItem,
@@ -83,7 +85,9 @@ const FavoriteView = ({
           renderItem={({ item }: { item: IProduct }) => (
             <RenderItem item={item} />
           )}
-          keyExtractor={(item: IProduct) => item._id.toString()}
+          keyExtractor={(item) => {
+            v4();
+          }}
         />
       </ListArea>
     </MainSafeAreaView>

@@ -21,8 +21,8 @@ const DetailController = ({ navigation, route }: iProps) => {
   }
 
   const { state: userState } = useContext(UserContext);
- 
-  objectPosition = userState?.position as IPosition;
+
+  objectPosition = userState?.currentPosition as IPosition;
 
   return <DetailView objectItem={objectItem} objectPosition={objectPosition} />;
 };

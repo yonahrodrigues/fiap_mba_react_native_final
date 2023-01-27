@@ -4,7 +4,7 @@ import { Alert } from "react-native";
 
 async function getAllProducts() {
   let token = await useGetStorageItem("user-token");
-  console.log("UserINFOToken---->" + token);
+  // console.log("UserINFOToken---->" + token);
 
   const config = {
     headers: {
@@ -12,7 +12,10 @@ async function getAllProducts() {
       "Content-Type": "application/json",
     },
   };
-  return api.get("/storeProducts", config);
+  return api.get(
+    "/storeProducts/?page=0&perPage=50&orderDirection=asc",
+    config
+  );
 }
 
 async function getFavoriteProducts() {
@@ -36,14 +39,9 @@ type IParamGetManageFavorite = {
   productID: string;
 };
 const getManageFavorite = async (url: string, data: string) => {
-  //console.log("***********");
-  //console.log(url);
-  //console.log(data);
-  //console.log("***********");
   let token = await useGetStorageItem("user-token");
   if (token && data) {
-    // console.log("UserTokenFavorite---->" + token);
-    console.log("UserTokenFavoriteDATA---->" + data);
+    // console.log("UserTokenFavoriteDATA---->" + data);
     const config = {
       headers: {
         Authorization: "Bearer " + token,
@@ -51,10 +49,7 @@ const getManageFavorite = async (url: string, data: string) => {
       },
     };
     try {
-      //await
-    //console.log("Pre API");
       api.post(url + "storeProducts/manageFavorite", data, config);
-     // console.log("POS API");
       return data;
     } catch (err: any) {
       console.log("ERROAPI" + err.message || "Unexpected Error!");

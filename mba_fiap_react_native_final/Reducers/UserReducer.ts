@@ -1,8 +1,5 @@
 import IUserInfo from "../Interfaces/iUserInfo";
-import {
-  
-  useSetStorageItem,
-} from "../Services/Storage/StorageServices";
+import { useSetStorageItem } from "../Services/Storage/StorageServices";
 import IProduct from "../Interfaces/IProduct";
 import IPosition from "../Interfaces/IPosition";
 interface UserState {
@@ -40,6 +37,7 @@ export const UserReducer = (state, action) => {
 
     case "setPos":
       let pos: IPosition | null = action.payload?.currentPosition ?? null;
+      console.log("POS" + JSON.stringify(pos));
       return { ...state, currentPosition: pos };
 
     case "upFav":
@@ -56,7 +54,6 @@ export const UserReducer = (state, action) => {
 
     case "favorite":
       const listaAtualFav = state.favorites;
-      console.log("busca Lista atual" + JSON.stringify(state));
       let listAtualFav = listaAtualFav.map(function (item) {
         if (item._id == action.payload.fav.productID) {
           item.favorite = !item.favorite;

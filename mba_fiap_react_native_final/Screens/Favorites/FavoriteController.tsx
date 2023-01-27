@@ -4,12 +4,14 @@ import { StackScreenProps } from "@react-navigation/stack";
 import useAPI from "../../Services/APIs/Common/useAPI";
 import ProductsAPI from "../../Services/APIs/Products/Products";
 import IProduct from "../../Interfaces/IProduct";
-
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
 import { UserContext } from "../../Context/UserContext";
 import IPosition from "../../Interfaces/IPosition";
-import { useRemoveStorageItem } from "../../Services/Storage/StorageServices";
+import {
+  useGetStorageItem,
+  useRemoveStorageItem,
+} from "../../Services/Storage/StorageServices";
 type RootStackParamList = {
   Home: undefined;
   Details: { itemID: number; info: string };
@@ -24,7 +26,15 @@ const FavoriteController = ({ route, navigation }: iProps) => {
   const getProductsGetAPI = useAPI(ProductsAPI.getFavoriteProducts);
   const getFavoriteAPI = useAPI(ProductsAPI.getManageFavorite);
 
+  const checkAuth = async () => {
+    let token = await useGetStorageItem("user-token");
+    if (!token) {
+      navigation.navigate("Signin");
+    }
+  };
+
   useEffect(() => {
+    checkAuth();
     getDataPage();
   }, []);
 
@@ -64,11 +74,9 @@ const FavoriteController = ({ route, navigation }: iProps) => {
       productID,
     };
 
-    // console.log("info==>:::" + JSON.stringify(info));
     getFavoriteAPI
       .requestPromise("", JSON.stringify(info))
       .then((res: any) => {
-        //console.log("infoP==>:::!!!!!" + JSON.stringify(info));
         userDispatch({
           type: "upFav",
           payload: {

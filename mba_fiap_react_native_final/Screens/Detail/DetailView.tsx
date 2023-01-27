@@ -20,7 +20,7 @@ type iProps = {
   objectPosition: IPosition | null;
 };
 const DetailView = ({ objectItem, objectPosition }: iProps) => {
-  // console.log("OBJPOsition" + objectPosition);
+ // console.log("OBJPOsition" + JSON.stringify(objectPosition));
 
   if (!objectItem) {
     return (
@@ -42,25 +42,24 @@ const DetailView = ({ objectItem, objectPosition }: iProps) => {
         />
       </MenuBack>
       <ScrollView>
-        <TextTitle>Nome</TextTitle>
-        <TextName>{objectItem.name}</TextName>
+        <TextTitle>Produto</TextTitle>
+        <TextDetail>{objectItem.name}</TextDetail>
         <TextTitle>Preço</TextTitle>
         <TextDetail>R${objectItem.price}</TextDetail>
         <TextTitle>Favorito</TextTitle>
 
         <TextDetail> {objectItem.favorite ? "Sim" : "Não"}</TextDetail>
-        <TextTitle>Sua Localização</TextTitle>
         <TextTitle>{objectPosition ? `Sua localização: ` : ""}</TextTitle>
-        <TextTitle>
-          {objectPosition
-            ? `Latitude: ${objectPosition.currentPosition.coords.latitude}`
+        <TextDetail>
+          {objectPosition != null
+            ? `Latitude: ${objectPosition?.coords?.latitude}`
             : ""}
-        </TextTitle>
-        <TextTitle>
-          {objectPosition
-            ? `Longitude: ${objectPosition.currentPosition.coords.longitude} `
+        </TextDetail>
+        <TextDetail>
+          {objectPosition != null
+            ? `Longitude: ${objectPosition?.coords?.longitude} `
             : ""}
-        </TextTitle>
+        </TextDetail>
         <TextTitle>
           {objectItem.stores ? "Lojas com item em Estoque" : " "}
         </TextTitle>

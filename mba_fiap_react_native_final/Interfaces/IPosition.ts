@@ -1,8 +1,6 @@
 export default interface IPosition {
-  currentPosition: {
-    coords: {
-      longitude: number;
-      latitude: number;
-    };
+  coords: {
+    longitude: number;
+    latitude: number;
   };
 }
