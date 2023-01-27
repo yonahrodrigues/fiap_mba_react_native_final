@@ -155,6 +155,10 @@ To run your project, navigate to the directory and run one of the following yarn
 
 - [npmjs](https://www.npmjs.com/package/yup)
 
+- [docs#2](https://programming-techniques.com/ask-475-add-images-to-readmemd-on-github/)
+
+- [gerarapk](https://www.alura.com.br/artigos/react-native-gerando-apk-ipa)
+
 > Objetivos:
 
 ```
@@ -166,20 +170,45 @@ To run your project, navigate to the directory and run one of the following yarn
 - [x] Deve listar os produtos Favoritos de um usuário
 - [x] Tela Login com campo email e senha e botão pra cadastro
 - [x] Tela Cadastro com nome, telefone, email e senha
-- [-] Utilizar Yup pra validar campos Login e Cadastro
+- [x] Utilizar Yup pra validar campos Login e Cadastro
 - [x] Tela de Produtos deve exibir campos:
      - Nome, preço, Favorito e botão detalhe
-- [-] Tela de Produtos deve utilizar ListView com paginação
+- [x] Tela de Produtos deve utilizar ListView com paginação
 - [x] Tela de Produtos ao iniciar deve carregar a geolocalização do usuário
 - [x-] Tela de Favoritos deve exibir campos:
      - Nome, preço, Favorito e botão detalhe
-- [-] Tela de Detalhe deve exibir:
-     - Nome, preço, botão se é favoritado, mapa com a posição do usuário e as lojas onde está disponível
+- [x] Tela de Detalhe deve exibir:
+     - Nome, preço, Informar se é favoritado, mapa com a posição do usuário e as lojas onde está disponível
 - [x] Menu Lateral em todas as telas principais com as seguintes opções:
     - nome do usuário
     - Principal (tela Produtos)
     - Favoritos (tela de Favoritos)
     - Botão de Logout
 
-- [-] Trabalho concluído e requisitos atendidos. :)
+- [x] Trabalho concluído e requisitos atendidos. :)
+```
+
+## telas
+
+![preloader](preloader.png)
+![login](login.png)
+![registro](registro.png)
+![menu](menu.png)
+![home](home.png)
+![detalhe](detalhe.png)
+![favoritos](favoritos.png)
+![detalhes favoritos](detalhesfav.png)
+
+## Grupo
+
+### [repositório Git](https://github.com/yonahrodrigues/fiap_mba_react_native_final)
+
+```
+Grupo:
+Bruno Alves Moreira - 344969
+Jonas Rodrigues de Oliveira - 344772
+Lucas Esteves Fernandes Diogo - 344774
+Rafael Costa da Cruz - 344780
+Victor Hugo Fiorotti - 344988
+
 ```
